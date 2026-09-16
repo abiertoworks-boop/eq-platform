@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja" data-tone="reflect">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EQ Platform Ver2.0 | 人は認識によって行動する。</title>
+<meta name="description" content="株式会社BrifuのEQ Platform。EQ認識理論に基づき、EQを学び、実践し、人間力を育てる教育プラットフォーム。自分を活かす。人を活かす。そして、その力を社会へ。">
+<meta property="og:title" content="EQ Platform Ver2.0 | 株式会社Brifu">
+<meta property="og:description" content="自分を活かす。人を活かす。そして、その力を社会へ。">
+<meta property="og:image" content="images/hero-poster.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!--
+  EQ Platform Ver2.0 トップ（HP工房）
+  ・HERO：動画 → スクロールで球体を中央へ運びながらズーム → 光の中へ
+  ・その先：画面の奥に固定した3D空間。各セクションの data-anchor で、カメラが次の球体へ移動しながら近づく
+  ・文章：株式会社Brifu「EQ Platform」原本を要約。<em> は強調（色が変わる）
+  ・ステージの順番は原本どおり：EQ Gate → EIA → EQ Skills → EQ Humanity → EQTM → EQ Business Nexus
+-->
+<div id="space-bg" aria-hidden="true"></div>
+<canvas id="space" aria-hidden="true"></canvas>
+
+<header class="site-header" id="siteHeader">
+  <a class="logo en" href="#top">EQ PLATFORM</a>
+  <nav class="nav en" aria-label="ページ内メニュー">
+    <a href="#theory">Theory</a>
+    <a href="#growth">Growth</a>
+    <a href="#stages">Platform</a>
+    <a href="#cycle">Cycle</a>
+    <a href="#start">Start</a>
+  </nav>
+  <a class="btn btn--ghost btn--sm" href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener">EQ Gate を体験</a>
+</header>
+
+<main>
+
+<!-- ============ HERO：動画 → 球体へズーム ============ -->
+<section class="hero" id="top">
+  <div class="hero__pin" id="heroPin">
+    <div class="hero__stage" id="heroStage">
+      <video class="hero__video is-on" muted playsinline preload="auto" poster="images/hero-poster.jpg" src="video/hero.mp4"></video>
+      <video class="hero__video" muted playsinline preload="none" src="video/hero.mp4" aria-hidden="true"></video>
+    </div>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="hero__light" id="heroLight" aria-hidden="true"></div>
+    <div class="container hero__content" id="heroContent">
+      <p class="eyebrow">株式会社Brifu — EQ Platform Ver2.0</p>
+      <h1 class="h-display">人は認識によって<br>行動する。</h1>
+      <p class="lead">認識を整え、感情を力に変え、豊かな人生と社会を創る。</p>
+      <p class="hero__sub">EQを学び、実践し、人間力を育てる教育プラットフォーム</p>
+    </div>
+    <div class="scroll-cue en" aria-hidden="true">Scroll</div>
+  </div>
+</section>
+
+<div class="journey">
+
+<!-- ============ なぜ、EQ Platformをつくったのか ============ -->
+<section class="sec" id="why" data-anchor="far" data-tint="#0b1426">
+  <div class="container">
+    <div class="panel panel--wide">
+      <p class="eyebrow">Why — なぜ、EQ Platformをつくったのか</p>
+      <div class="why-grid">
+        <div>
+          <h2 class="h-1 h-1--fit scramble">学んでいる。<br>分かっている。<br>それでも、なぜ<br>変わらないのでしょうか。</h2>
+          <p class="mini-label">いま、起きていること</p>
+          <ul class="issues">
+            <li>「分かっているのに行動できない」</li>
+            <li>「同じことで何度も悩む」</li>
+            <li>「感情に振り回されてしまう」</li>
+            <li>「伝えているのに、人が育たない」</li>
+            <li>「組織に学びを導入しても定着しない」</li>
+          </ul>
+        </div>
+        <div class="perspective">
+          <p class="mini-label">株式会社Brifuの捉え方</p>
+          <p>Brifuが大切にしてきたのは、人の成長を<em>知識やスキルだけで捉えない</em>こと。</p>
+          <p>人には感情があり、その奥に<em>認識・価値観・判断基準</em>があり、そこから選択や行動が生まれます。だからこそBrifuでは、</p>
+          <ul class="checks">
+            <li>心の土台を育てること</li>
+            <li>EQのスキルを育てること</li>
+            <li>人としてのあり方・人間力を育てること</li>
+            <li>実社会で使い続けること</li>
+          </ul>
+          <p>までを、<em>一つの成長</em>として考えています。そのためにつくられたのが、EQ Platformです。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQ認識理論 ============ -->
+<section class="sec" id="theory" data-anchor="glow" data-tint="#0b1a33">
+  <div class="container">
+    <div class="panel">
+      <p class="eyebrow">EQ Recognition Theory — EQ認識理論</p>
+      <h2 class="h-1 scramble">認識を整え、<br>感情を力に変える。</h2>
+      <p class="lead">同じ出来事でも感じ方や行動が違うのは、<em>認識が違うから</em>。EQ Platformは、この「EQ認識理論」が土台です。</p>
+      <ol class="principles">
+        <li class="principle" tabindex="0" aria-expanded="false">
+          <div class="principle__head"><span class="en">01</span><b>認識が感情と行動を生み出す</b><span class="principle__plus" aria-hidden="true"></span></div>
+          <div class="principle__more"><div><span class="principle__so">だから、どうなる？</span><p>出来事は変えられなくても、<em>受け取り方（認識）</em>に目を向ければ、感情と行動は変えていけます。相手や環境より先に、自分の内側から始められます。</p></div></div>
+        </li>
+        <li class="principle" tabindex="0" aria-expanded="false">
+          <div class="principle__head"><span class="en">02</span><b>認識は自覚されなければ変化しない</b><span class="principle__plus" aria-hidden="true"></span></div>
+          <div class="principle__more"><div><span class="principle__so">だから、どうなる？</span><p>変化の第一歩は、<em>「気づくこと」</em>。感情が動いた瞬間に「私は今、どんな認識をしているのだろう？」と問うことで、同じ悩みの繰り返しから抜け出せます。</p></div></div>
+        </li>
+        <li class="principle" tabindex="0" aria-expanded="false">
+          <div class="principle__head"><span class="en">03</span><b>認識の質は成長し続ける</b><span class="principle__plus" aria-hidden="true"></span></div>
+          <div class="principle__more"><div><span class="principle__so">だから、どうなる？</span><p>学び、実践し、振り返るほど、認識の質は高まります。感情を適切に活かし、<em>自分と他者を尊重した選択</em>ができるようになります。</p></div></div>
+        </li>
+      </ol>
+      <p class="principles__hint">項目にカーソルを合わせる（スマホはタップする）と、補足が現れます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQ Platformとは（カードフォルダー） ============ -->
+<section class="sec" id="about" data-anchor="about" data-tint="#0c1224">
+  <div class="container">
+    <div class="panel panel--wide">
+      <p class="eyebrow">EQ Platform — 人の成長を、学びだけで終わらせない</p>
+      <h2 class="h-1 scramble">自分を活かす。<br>人を活かす。<br>そして、その力を社会へ。</h2>
+      <p class="lead lead--wide">EQ Platformは、一つの講座の名前ではありません。EQを通して<em>心の土台・能力・人間力</em>を育て、その力を人材育成・ビジネス・組織・社会へつなぐ、<em>教育・実践Platform</em>です。BrifuはEQを、「自分と人との信頼ある人間関係をつくる力」と捉えています。</p>
+      <div class="folders">
+        <article class="fcard" tabindex="0" style="--c:#e0a24f;--c2:#f6d7a6">
+          <div class="fcard__top">
+            <span class="fcard__tab" aria-hidden="true"></span>
+            <img class="fcard__img" src="images/about/self.jpg" alt="目を閉じて上を向く女性">
+            <div class="fcard__flap"><span class="fcard__num en">01</span><span class="fcard__arrow" aria-hidden="true">↗</span></div>
+          </div>
+          <div class="fcard__body">
+            <p class="fcard__en en">Step 01</p>
+            <h3>自分を活かす</h3>
+            <p>感情を知り、認識や価値観に気づき、自分で判断・選択できる力を育てる。<em>自己理解が出発点</em>です。</p>
+          </div>
+        </article>
+        <article class="fcard" tabindex="0" style="--c:#5b8fe6;--c2:#b9d3ff">
+          <div class="fcard__top">
+            <span class="fcard__tab" aria-hidden="true"></span>
+            <img class="fcard__img" src="images/about/others.jpg" alt="手のひらの上に広がる人のつながり">
+            <div class="fcard__flap"><span class="fcard__num en">02</span><span class="fcard__arrow" aria-hidden="true">↗</span></div>
+          </div>
+          <div class="fcard__body">
+            <p class="fcard__en en">Step 02</p>
+            <h3>人を活かす</h3>
+            <p>相手の感情・価値観を理解し、<em>一人ひとりの成長を支援できる力</em>を身につける。</p>
+          </div>
+        </article>
+        <article class="fcard" tabindex="0" style="--c:#52b683;--c2:#bfe8cf">
+          <div class="fcard__top">
+            <span class="fcard__tab" aria-hidden="true"></span>
+            <img class="fcard__img" src="images/about/society.jpg" alt="机を囲んで働くチーム">
+            <div class="fcard__flap"><span class="fcard__num en">03</span><span class="fcard__arrow" aria-hidden="true">↗</span></div>
+          </div>
+          <div class="fcard__body">
+            <p class="fcard__en en">Step 03</p>
+            <h3>社会へ活かす</h3>
+            <p>EQを仕事・組織・社会課題の解決へつなげ、<em>より良い未来</em>をともにつくる。</p>
+          </div>
+        </article>
+      </div>
+      <p class="note-strong">目指すのは、EQを「知っている人」ではなく、<em>日常で実践し、自分と人を活かせる人</em>を育てることです。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQとは（育てる順番） ============ -->
+<section class="sec" id="steps" data-anchor="steps" data-tint="#0d1022">
+  <div class="container">
+    <div class="panel panel--center panel--wide">
+      <p class="eyebrow">What is EQ — EQとは</p>
+      <h2 class="h-1 scramble">EQは、自分と人の<br>可能性を活かす力。</h2>
+      <p class="lead">生まれつきの才能ではなく、<em>順番をたどれば誰でも育てられる力</em>です。</p>
+      <div class="timeline">
+        <span class="timeline__line" aria-hidden="true"></span>
+        <span class="timeline__light" aria-hidden="true"></span>
+        <div class="tstep tstep--l" style="--c:var(--c-gate)"><span class="en">Step 01</span><h3>自己理解</h3><p>まず、自分が何を感じているのかに気づく。</p></div>
+        <div class="tstep tstep--r" style="--c:var(--c-skills)"><span class="en">Step 02</span><h3>感情の言語化</h3><p>その感情に、名前をつけて扱えるようにする。</p></div>
+        <div class="tstep tstep--l" style="--c:var(--c-eia)"><span class="en">Step 03</span><h3>他者理解</h3><p>自分が分かるから、相手の心にも目を向けられる。</p></div>
+        <div class="tstep tstep--r" style="--c:var(--c-humanity)"><span class="en">Step 04</span><h3>コミュニケーション</h3><p>認識の違いに気づき、互いに確認しながら対話する。</p></div>
+        <div class="tstep tstep--l" style="--c:var(--c-eqtm)"><span class="en">Step 05</span><h3>意思決定</h3><p>感情に流されず、目的から選べるようになる。</p></div>
+        <div class="tstep tstep--r" style="--c:var(--c-nexus)"><span class="en">Step 06</span><h3>行動</h3><p>選んだことを実行し、結果からまた学ぶ。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 横成長・縦成長（動画の背景） ============ -->
+<section class="sec" id="growth" data-anchor="growth" data-tint="#0a1628">
+  <div class="container">
+    <div class="panel panel--center panel--xwide">
+      <p class="eyebrow">Two Directions — 人の成長には、2つの方向がある</p>
+      <h2 class="h-1 scramble">「できること」を<br>増やすだけで、<br>人は本当に<br>成長するのでしょうか。</h2>
+      <div class="growth-grid">
+        <article class="gcard">
+          <video class="gcard__bg" muted loop playsinline preload="metadata" poster="images/yoko-poster.jpg" src="video/yoko.mp4" aria-hidden="true"></video>
+          <div class="gcard__body">
+            <p class="gcard__en en">Horizontal Growth</p>
+            <h3>横成長</h3>
+            <p class="gcard__sub">できることを増やす</p>
+            <p>知識・技術・対人スキルなど、<em>「何ができるか」</em>を増やす成長。EQスキルが中心に担います。</p>
+            <ul class="checks">
+              <li>知識・技術・経験</li>
+              <li>コミュニケーション・対人スキル</li>
+              <li>専門能力・自己管理</li>
+            </ul>
+          </div>
+        </article>
+        <article class="gcard">
+          <video class="gcard__bg" muted loop playsinline preload="metadata" poster="images/tate-poster.jpg" src="video/tate.mp4" aria-hidden="true"></video>
+          <div class="gcard__body">
+            <p class="gcard__en en">Vertical Growth</p>
+            <h3>縦成長</h3>
+            <p class="gcard__sub">人としての土台・あり方を育てる</p>
+            <p>何を感じ、なぜそう捉え、何を大切にしているのか。<em>自分軸・あり方・人間力</em>を育てる成長です。</p>
+            <ul class="checks">
+              <li>自己認識・感情理解</li>
+              <li>価値観・判断基準への気づき</li>
+              <li>あり方・人間力の深化</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      <ul class="programs3">
+        <li style="--c:var(--c-skills)"><b class="en">EQ Skills</b><p>横成長を中心に。日常で使えるEQスキルを、実践的に鍛える。</p></li>
+        <li style="--c:var(--c-eia)"><b class="en">EIA</b><p>縦成長の土台。感情を入口に自分を理解し、心の土台をつくる。</p></li>
+        <li style="--c:var(--c-humanity)"><b class="en">EQ Humanity</b><p>さらに深める。あり方・価値観・判断力を、実践の中で育てる。</p></li>
+      </ul>
+      <p class="formula"><span>心の土台</span> × <span>EQスキル</span> × <span>人間力</span> × <span>実践</span><small>4つが統合されて、はじめて本当の成長が生まれます。</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 教育プラットフォーム（全体像） ============ -->
+<section class="sec" id="stages" data-anchor="overview" data-tint="#0a1224">
+  <div class="container">
+    <div class="panel panel--center panel--wide">
+      <p class="eyebrow">EQ Platform Ver2.0 — 教育プラットフォーム</p>
+      <h2 class="h-1 scramble">学ぶ場所ではなく、<br>成長と実践がつながる場所。</h2>
+      <p class="lead">入口のEQ Gateから、5つのステージを段階的に進んでいきます。</p>
+      <nav class="route-map" aria-label="ステージ一覧">
+        <a href="#stage-1" style="--c:var(--c-gate)"><span class="ico"><img src="images/icons/gate.png" alt=""></span><small>入口・はじめの一歩</small><b>EQ Gate</b></a>
+        <a href="#stage-2" style="--c:var(--c-eia)"><span class="ico"><img src="images/icons/eia.png" alt=""></span><small>心の土台を育てる</small><b>EIA</b></a>
+        <a href="#stage-3" style="--c:var(--c-skills)"><span class="ico"><img src="images/icons/skills.png" alt=""></span><small>EQを使う力を育てる</small><b>EQ Skills</b></a>
+        <a href="#stage-4" style="--c:var(--c-humanity)"><span class="ico"><img src="images/icons/humanity.png" alt=""></span><small>あり方・人間力を育てる</small><b>EQ Humanity</b></a>
+        <a href="#stage-5" style="--c:var(--c-eqtm)"><span class="ico"><img src="images/icons/eqtm.png" alt=""></span><small>学んだEQを実践する</small><b>EQTM</b></a>
+      </nav>
+      <p class="flow-note">学ぶ → 気づく → 育つ → 実践する → 社会へ活かす。<br>そして必要な時には、また自分自身の学びへ戻る。</p>
+      <p class="lead">一方向の教育プログラムではなく、<em>成長が循環し続ける仕組み</em>。どこから入っても、どこへでもつながっています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGE 01：EQ Gate ============ -->
+<section class="sec stage" id="stage-1" data-anchor="orb-0" data-tint="#2a1a08" style="--c:var(--c-gate)">
+  <span class="giant-num en" aria-hidden="true">01</span>
+  <div class="container">
+    <div class="panel">
+      <p class="stage__step"><span class="en">Stage 01</span>入口・はじめの一歩</p>
+      <h2 class="stage__name en scramble">EQ Gate</h2>
+      <p class="stage__type">EQとの出会いの入口</p>
+      <p class="stage__desc">EQに触れ、<em>自分を知るきっかけ</em>をつくる場所。情報・診断・体験・コンテンツがそろっています。</p>
+      <p class="stage__label">Gateメンバー（無料）</p>
+      <ul class="chips">
+        <li>動画コンテンツ</li><li>EQ勉強会・イベント</li><li>EQ診断・セルフチェック</li><li>体験会・入門セミナー</li><li>無料コンテンツ</li>
+      </ul>
+      <a class="link-arrow" href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener"><span class="bar" aria-hidden="true"></span>EQ Gate を体験する</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGE 02：EIA ============ -->
+<section class="sec stage" id="stage-2" data-anchor="orb-1" data-tint="#0b2618" style="--c:var(--c-eia)">
+  <span class="giant-num en" aria-hidden="true">02</span>
+  <div class="container">
+    <div class="panel">
+      <p class="stage__step"><span class="en">Stage 02</span>心の土台を育てる<span class="stage__tag">縦成長の土台</span></p>
+      <h2 class="stage__name en scramble">EIA</h2>
+      <p class="stage__type">認識更新ステージ</p>
+      <p class="stage__desc">感情を入口に自分を理解し、認識・価値観・判断基準に気づきながら、<em>自分軸と人間力の土台</em>をつくります。</p>
+      <ul class="chips">
+        <li>自己受容・価値観の言語化</li><li>思考の客体化</li><li>感情の受容・本質理解</li><li>継続成長</li>
+      </ul>
+      <p class="stage__label">主な学び：EIA Gate ／ EQリカバリー ／ EIA STEPⅠ〜Ⅳ　等</p>
+      <a class="link-arrow" href="https://eia-gate-qbwot3x.gamma.site" target="_blank" rel="noopener"><span class="bar" aria-hidden="true"></span>EIA を詳しく見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGE 03：EQ Skills ============ -->
+<section class="sec stage" id="stage-3" data-anchor="orb-2" data-tint="#0b1a3a" style="--c:var(--c-skills)">
+  <span class="giant-num en" aria-hidden="true">03</span>
+  <div class="container">
+    <div class="panel">
+      <p class="stage__step"><span class="en">Stage 03</span>EQを使う力を育てる<span class="stage__tag">横成長</span></p>
+      <h2 class="stage__name en scramble">EQ Skills</h2>
+      <p class="stage__type">スキル習得ステージ</p>
+      <p class="stage__desc">感情・行動・コミュニケーションなど、<em>人生・仕事・人間関係で使えるスキル</em>を、実践的に育てます。</p>
+      <ul class="chips">
+        <li>感情リテラシー</li><li>コミュニケーション力</li><li>自己理解・対人理解</li><li>行動スキルの習得</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGE 04：EQ Humanity ============ -->
+<section class="sec stage" id="stage-4" data-anchor="orb-3" data-tint="#1c1233" style="--c:var(--c-humanity)">
+  <span class="giant-num en" aria-hidden="true">04</span>
+  <div class="container">
+    <div class="panel">
+      <p class="stage__step"><span class="en">Stage 04</span>あり方・人間力を育てる<span class="stage__tag">縦成長</span></p>
+      <h2 class="stage__name en scramble">EQ Humanity</h2>
+      <p class="stage__type">人間力向上ステージ</p>
+      <p class="stage__desc">あり方・価値観・判断力を実践の中で育て、<em>人格・人間力</em>を高めていきます。</p>
+      <ul class="chips">
+        <li>メタ認知・関係構築</li><li>他者理解・合意形成</li><li>視座の拡大・使命の発見</li><li>継続成長</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGE 05：EQTM ============ -->
+<section class="sec stage" id="stage-5" data-anchor="orb-4" data-tint="#08221f" style="--c:var(--c-eqtm)">
+  <span class="giant-num en" aria-hidden="true">05</span>
+  <div class="container">
+    <div class="panel">
+      <p class="stage__step"><span class="en">Stage 05</span>学んだEQを実践する</p>
+      <h2 class="stage__name en scramble">EQTM</h2>
+      <p class="stage__type">実践・習慣化ステージ</p>
+      <p class="stage__desc">学んだEQを日常で実践し、<em>仲間とともに成長する</em>場です。</p>
+      <ul class="chips">
+        <li>仲間と実践する場</li><li>トレーニング・習慣化</li><li>実践の共有・フィードバック</li><li>価値創造・社会貢献</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQ Business Nexus ============ -->
+<section class="sec stage" id="nexus" data-anchor="orb-5" data-tint="#2a1220" style="--c:var(--c-nexus)">
+  <div class="container">
+    <div class="panel panel--nexus">
+      <p class="stage__step"><span class="en">Consulting</span>個別コンサルティングプラットフォーム</p>
+      <h2 class="stage__name en scramble">EQ Business Nexus</h2>
+      <p class="stage__type">EQ認識理論 活用ステージ</p>
+      <p class="stage__desc">学んだEQを、<em>社会の中で価値に変える</em>。個人・経営者・企業・組織の課題解決を、伴走して支援します。</p>
+      <div class="nexus-cols">
+        <div>
+          <p class="mini-label">個人｜EQを活かしたビジネスをつくりたい</p>
+          <ul class="checks checks--sm">
+            <li>これからビジネスを始めたい</li>
+            <li>経験や専門性を仕事にしたい</li>
+            <li>商品をつくりたい・集客を学びたい</li>
+          </ul>
+        </div>
+        <div>
+          <p class="mini-label">法人・組織｜会社・組織へEQを活かしたい</p>
+          <ul class="checks checks--sm">
+            <li>人材・リーダーを育てたい</li>
+            <li>自発的に動く人を増やしたい</li>
+            <li>信頼関係のある組織をつくりたい</li>
+          </ul>
+        </div>
+      </div>
+      <p class="mini-label">個人向け伴走の3ステップ</p>
+      <ol class="nsteps">
+        <li class="nstep" tabindex="0"><span class="nstep__n en">1</span><b>ビジネスの種を見つける</b><p>誰に、どんな価値を届けたいのか。</p></li>
+        <li class="nstep" tabindex="0"><span class="nstep__n en">2</span><b>商品・サービスにする</b><p>ターゲット・提供価値・価格を設計する。</p></li>
+        <li class="nstep" tabindex="0"><span class="nstep__n en">3</span><b>必要な人へ届ける</b><p>発信・募集・顧客導線を整える。</p></li>
+      </ol>
+      <p class="stage__note">企業・組織には、課題に合わせてEQによる人材育成・組織づくりを支援し、<em>組織全体の信頼と自律性</em>を高めます。EQを学ぶだけでなく、自分の仕事として社会へ届けるところまで伴走します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 立場ごとに、得られるもの ============ -->
+<section class="sec" id="foryou" data-anchor="trail" data-tint="#0c1630">
+  <div class="container">
+    <div class="panel panel--wide">
+      <p class="eyebrow">For You — 立場ごとに、得られるもの</p>
+      <h2 class="h-1 scramble">それぞれの立場で、<br>何を身につけるか。</h2>
+      <div class="oc-grid">
+        <article class="oc-card">
+          <img class="oc-photo" src="images/foryou/outcome-1.jpg" alt="前を見つめる男女のビジネスパーソン">
+          <h3>相手の内側に、届くようになる</h3>
+          <p class="oc-sub">講師・コーチ・コンサルタント</p>
+          <p>伝える力だけでなく、相手の感情・価値観・認識に合わせて関わる力を身につける。一人ひとりに合ったアプローチで、本質的な変化を引き出せるようになります。</p>
+        </article>
+        <article class="oc-card">
+          <img class="oc-photo" src="images/foryou/outcome-2.jpg" alt="腕を組んで並ぶ経営者とリーダー">
+          <h3>人が育つ場を、つくれるようになる</h3>
+          <p class="oc-sub">経営者・リーダー</p>
+          <p>メンバーの感情・価値観・認識を理解し、その人らしい成長を支援するリーダーシップを育てる。指示ではなく、可能性を引き出す関わりへ変わります。</p>
+        </article>
+        <article class="oc-card">
+          <img class="oc-photo" src="images/foryou/outcome-3.jpg" alt="黒板の前で教える女性">
+          <h3>学びが、定着するようになる</h3>
+          <p class="oc-sub">人材育成担当者・教育者</p>
+          <p>研修や教育プログラムにEQの視点を取り入れ、「聞いて終わり」にならない学びの場を設計する力を身につけます。</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 学びの循環 ============ -->
+<section class="sec" id="cycle" data-anchor="back" data-tint="#0d1426">
+  <div class="container">
+    <div class="panel panel--center panel--wide">
+      <p class="eyebrow">The Cycle — 学びの循環</p>
+      <h2 class="h-1 scramble">Brifuの<br>実践学習サイクル</h2>
+      <p class="lead">学びを日常に活かし、<em>より良い未来を創る循環</em>。</p>
+      <div class="cycle">
+        <div class="cycle__ring">
+          <span class="cycle__track" aria-hidden="true"></span>
+          <span class="cycle__comet" aria-hidden="true"></span>
+          <span class="cycle__spin" aria-hidden="true"><i></i></span>
+          <div class="cycle__center">
+            <p class="cycle__brand">Brifu</p>
+            <p class="cycle__msg">自覚と実践の繰り返しで、認識が更新され、行動と未来が変わる。</p>
+          </div>
+          <div class="cnode" data-cycle="0" style="--x:50%;--y:12%;--c:var(--c-skills)" aria-hidden="true">
+            <span class="cnode__n en">1</span>
+            <svg viewBox="0 0 24 24"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5V19c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13.5"/></svg>
+            <b>学ぶ</b><p>EQと認識理論で、新しい視点を得る</p>
+          </div>
+          <div class="cnode" data-cycle="1" style="--x:86.1%;--y:38.3%;--c:var(--c-eia)" aria-hidden="true">
+            <span class="cnode__n en">2</span>
+            <svg viewBox="0 0 24 24"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2-5-6-5 0 3 2 5 6 5z"/></svg>
+            <b>日常で実践する</b><p>学びを意識して行動し、体験を積む</p>
+          </div>
+          <div class="cnode" data-cycle="2" style="--x:72.3%;--y:80.7%;--c:var(--c-gate)" aria-hidden="true">
+            <span class="cnode__n en">3</span>
+            <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M8.5 13l2.2 2.2 4.8-4.8"/></svg>
+            <b>感情と結果を振り返る</b><p>結果とその時の感情を整理する</p>
+          </div>
+          <div class="cnode" data-cycle="3" style="--x:27.7%;--y:80.7%;--c:var(--c-humanity)" aria-hidden="true">
+            <span class="cnode__n en">4</span>
+            <svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            <b>認識を自覚する</b><p>感情の奥の認識や思い込みに気づく</p>
+          </div>
+          <div class="cnode" data-cycle="4" style="--x:13.9%;--y:38.3%;--c:var(--c-eqtm)" aria-hidden="true">
+            <span class="cnode__n en">5</span>
+            <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 6h11l3 2.5L16 11H5z"/><path d="M19 13H8l-3 2.5L8 18h11z"/></svg>
+            <b>次の行動を選ぶ</b><p>より良い選択で、新たな一歩へ</p>
+          </div>
+        </div>
+        <ol class="cycle__list">
+          <li data-cycle="0" style="--c:var(--c-skills)"><span class="en">1</span><b>学ぶ</b><p>EQと認識理論で、新しい視点を得る</p></li>
+          <li data-cycle="1" style="--c:var(--c-eia)"><span class="en">2</span><b>日常で実践する</b><p>学びを意識して行動し、体験を積む</p></li>
+          <li data-cycle="2" style="--c:var(--c-gate)"><span class="en">3</span><b>感情と結果を振り返る</b><p>結果とその時の感情を整理する</p></li>
+          <li data-cycle="3" style="--c:var(--c-humanity)"><span class="en">4</span><b>認識を自覚する</b><p>感情の奥の認識や思い込みに気づく</p></li>
+          <li data-cycle="4" style="--c:var(--c-eqtm)"><span class="en">5</span><b>次の行動を選ぶ</b><p>より良い選択で、新たな一歩へ</p></li>
+        </ol>
+      </div>
+      <p class="statement">自分の成長が、<br>誰かの成長を<br>支える力になる。</p>
+      <p class="statement__note">このサイクルを繰り返すことで、<em>認識が深まり、感情が整い、行動の質が高まります</em>。その積み重ねが、自分らしい人生と、より良い人間関係・仕事・社会を創ります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ どこから始めますか ============ -->
+<section class="sec sec--last" id="start" data-anchor="home" data-tint="#0b1a33">
+  <div class="container">
+    <div class="panel panel--center panel--wide">
+      <p class="eyebrow">Start Here</p>
+      <h2 class="h-1 scramble">あなたは、<br>どこから始めますか？</h2>
+      <p class="lead">EQ Platformには、一人ひとりに違う入口があります。</p>
+      <div class="doors">
+        <a class="door" href="#stage-2" style="--c:var(--c-eia)"><span class="door__k en">A</span><h3>まず、自分自身を育てたい</h3><p>自分を理解し、感情や行動を整え、自分軸を育てたい。</p><span class="door__to">→ EIA ／ EQ Skills</span></a>
+        <a class="door" href="#foryou" style="--c:var(--c-skills)"><span class="door__k en">B</span><h3>人を理解し、育てる仕事がしたい</h3><p>講師・コーチ・育成者として、人の成長を支援したい。</p><span class="door__to">→ EQコアカード® ／ 育成者ルート</span></a>
+        <a class="door" href="#nexus" style="--c:var(--c-nexus)"><span class="door__k en">C</span><h3>EQを活かして、ビジネスをつくりたい</h3><p>起業・副業に、自分の専門性とEQを掛け合わせたい。</p><span class="door__to">→ EQ Business Nexus｜個人向け伴走</span></a>
+        <a class="door" href="#nexus" style="--c:var(--c-humanity)"><span class="door__k en">D</span><h3>会社・組織へEQを導入したい</h3><p>人材とリーダーを育て、組織の風土を変えたい。</p><span class="door__to">→ EQ Business Nexus｜企業・組織支援</span></a>
+        <a class="door" href="mailto:info@brifu.co.jp" style="--c:var(--c-gate)"><span class="door__k en">E</span><h3>どこから始めればよいか分からない</h3><p>現在地に合わせた入口をご案内します。</p><span class="door__to">→ まずは相談</span></a>
+      </div>
+      <p class="statement statement--end">自分を活かす。<br>人を活かす。<br>その力を、社会へ活かす。</p>
+      <p class="lead">入口は一人ひとり違っても、<em>その先はつながっています</em>。「どこから始めればよいか知りたい」と、お気軽にお伝えください。</p>
+      <div class="cta__actions">
+        <a class="btn btn--lg" href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener">EQ Gate を体験する <span class="arr" aria-hidden="true">→</span></a>
+        <a class="link-arrow" href="mailto:info@brifu.co.jp"><span class="bar" aria-hidden="true"></span>相談する（info@brifu.co.jp）</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <span>EQ Platformは、「学ぶ・つながる・実践する」を通じて人間力を育み、その学びを個人・企業・社会へ実装するエコシステムです。</span>
+  <a class="site-footer__brand" href="https://abiertoworks-boop.github.io/brifu-site/" target="_blank" rel="noopener">株式会社Brifu</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
