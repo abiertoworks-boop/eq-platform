@@ -194,8 +194,11 @@
     const renderer = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: !small, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2));
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x040a16, 0.026);
-    const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 240);
+    scene.fog = new THREE.FogExp2(0x040a16, 0.013);
+    // A narrow lens keeps the spheres round: a wide one stretches anything off the middle of the
+    // screen into an egg. The anchors below pull the camera back by DOLLY to keep sizes the same.
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 420);
+    const DOLLY = 1.7;
     scene.add(new THREE.HemisphereLight(0xdcecff, 0x0a0f1c, 0.85));
     const key = new THREE.PointLight(0xffffff, 0.9, 0, 2);
     scene.add(key);
@@ -328,6 +331,8 @@
     }
 
     const V = (x, y, z) => new THREE.Vector3(x, y, z);
+    // pull the camera back along its own line of sight, so the narrow lens still frames the same view
+    const dolly = (a) => ({ pos: a.look.clone().add(a.pos.clone().sub(a.look).multiplyScalar(DOLLY)), look: a.look });
     // camera anchors: where the camera rests while each section is centred on screen
     function anchor(name) {
       const wide = camera.aspect >= 1;
@@ -336,8 +341,11 @@
         const o = orbs[+m[1]].position;
         // wide screens: the sphere sits to the right of the text; tall screens: below it
         const off = wide ? V(-1.9, 0.25, 3.8) : V(0, 1.2, 4.8);
-        return { pos: o.clone().add(off), look: o.clone().add(V(off.x, off.y * 0.4, 0)) };
+        return dolly({ pos: o.clone().add(off), look: o.clone().add(V(off.x, off.y * 0.4, 0)) });
       }
+      return dolly(place(name, wide));
+    }
+    function place(name, wide) {
       switch (name) {
         case 'entry': return { pos: V(0, 0, 3.0), look: V(0, 0, 0) };            // inside the light
         case 'far': return wide ? { pos: V(-6, 1.4, 16), look: V(-2.6, 0.3, 0) } : { pos: V(0, 2.4, 17), look: V(0, 1.2, 0) };
@@ -532,34 +540,26 @@
       });
     });
 
-    // each stage arrives in its own way, then every panel blurs away as it leaves
-    const arrivals = {
-      'stage-1': { x: -160, rotateZ: -4 },
-      'stage-2': { y: 90 },
-      'stage-3': { scale: 0.62 },
-      'stage-4': { scaleY: 0.35, transformOrigin: 'bottom center' },
-      'stage-5': { y: 140 },
-      nexus: { scale: 0.72 },
-    };
+    // Every panel arrives the same quiet way. The tween follows the scroll exactly (scrub: true):
+    // a lag would leave the panel drifting behind the section it belongs to.
     document.querySelectorAll('.sec').forEach((sec) => {
       const panel = sec.querySelector('.panel');
       if (!panel) return;
-      const from = Object.assign({ opacity: 0, filter: 'blur(12px)' }, arrivals[sec.id] || { y: 70, scale: 0.96 });
-      gsap.fromTo(panel, from, {
-        opacity: 1, x: 0, y: 0, scale: 1, scaleY: 1, rotateZ: 0, filter: 'blur(0px)', ease: 'none',
-        scrollTrigger: { trigger: sec, start: 'top 85%', end: 'top 30%', scrub: 0.6 },
+      gsap.fromTo(panel, { opacity: 0, y: 26 }, {
+        opacity: 1, y: 0, ease: 'none',
+        scrollTrigger: { trigger: sec, start: 'top 82%', end: 'top 42%', scrub: true },
       });
       if (!sec.classList.contains('sec--last')) {
         gsap.to(panel, {
-          opacity: 0, y: -40, scale: 0.98, filter: 'blur(6px)', ease: 'none', immediateRender: false,
-          scrollTrigger: { trigger: sec, start: 'bottom 62%', end: 'bottom 12%', scrub: 0.6 },
+          opacity: 0.12, ease: 'none', immediateRender: false,
+          scrollTrigger: { trigger: sec, start: 'bottom 58%', end: 'bottom 18%', scrub: true },
         });
       }
       const num = sec.querySelector('.giant-num');
       if (num) {
-        gsap.fromTo(num, { x: 340, opacity: 0 }, {
-          x: 0, opacity: 0.1, ease: 'none',
-          scrollTrigger: { trigger: sec, start: 'top 85%', end: 'top 35%', scrub: 0.6 },
+        gsap.fromTo(num, { opacity: 0 }, {
+          opacity: 0.08, ease: 'none',
+          scrollTrigger: { trigger: sec, start: 'top 85%', end: 'top 45%', scrub: true },
         });
       }
       const chips = sec.querySelectorAll('.chips li');
