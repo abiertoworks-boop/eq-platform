@@ -115,7 +115,7 @@ window.JOB_QUIZ = {
   /* ---------- 二つ名（MAIN × SUB）と、ひとことキャッチコピー ---------- */
   titles: {
     CONNECTOR: {
-      LISTENER:  { name: 'ギルドマスター',       copy: '聴いて、見抜いて、静かにつなぐ。' },
+      LISTENER:  { name: 'ギルドマスター',       copy: '仲間の声を聴き、ふさわしい出会いへ導く。' },
       BUILDER:   { name: 'ネットワーク錬金術師', copy: 'つないだ縁を、価値ある財産に変えていく。' },
       SUPPORTER: { name: '世話焼き召喚士',       copy: '困っている人のもとへ、ぴったりの誰かを呼び寄せる。' },
       CREATOR:   { name: '化学反応ハンター',     copy: '出会いの組み合わせから、新しい何かを仕掛ける。' }
@@ -128,7 +128,7 @@ window.JOB_QUIZ = {
     },
     BUILDER: {
       CONNECTOR: { name: '人脈の建築士',         copy: '縁と縁を組み上げて、長く続く場をつくる。' },
-      LISTENER:  { name: '信頼のドワーフ',           copy: '聴いて、確かめて、信頼を一本ずつ組み上げる。' },
+      LISTENER:  { name: '信頼のドワーフ',           copy: 'じっくり聴き、信頼を岩のように固く積み上げる。' },
       SUPPORTER: { name: '縁の守護騎士',         copy: '一度結んだ縁を、最後まで守り抜く。' },
       CREATOR:   { name: '事業錬金術師',         copy: 'ひらめきを、続いていく事業のかたちへ。' }
     },
@@ -136,11 +136,11 @@ window.JOB_QUIZ = {
       CONNECTOR: { name: 'おせっかい召喚士',     copy: 'あなたの「困った」に、助っ人を呼んでくる。' },
       LISTENER:  { name: '共感ヒーラー',         copy: '寄り添って聴き、そっと背中を押す。' },
       BUILDER:   { name: '縁の守護者',           copy: '支え続けることで、縁を太くしていく。' },
-      CREATOR:   { name: '鎮守のモンク', copy: '誰かの挑戦を、応援で企画に変える。' }
+      CREATOR:   { name: '鎮守のモンク', copy: '場を静かに守り、仲間の挑戦にひらめきを添える。' }
     },
     CREATOR: {
       CONNECTOR: { name: '化学反応学者',         copy: '人と人を掛け合わせて、未知の反応を起こす。' },
-      LISTENER:  { name: '調和のエルフ戦士',       copy: '聴いた話を、新しい発想の素材にする。' },
+      LISTENER:  { name: '調和のエルフ戦士',       copy: '耳を澄ませ、違いを調和させて新しい発想を生む。' },
       SUPPORTER: { name: '可能性の魔法使い',     copy: '誰かの悩みを、可能性に変える魔法をかける。' },
       BUILDER:   { name: 'ビジネス錬金術師',     copy: 'ひらめきを、確かな成果へと錬成する。' }
     }
@@ -219,11 +219,11 @@ window.JOB_QUIZ = {
       { text: '時間をかけて信頼を積み重ねられること', job: 'BUILDER' }
     ]},
     { id: 'q10', text: '交流会が終わったあと、あなたが一番感じることは？', choices: [
-      { text: '今日出会った人同士をつなげる', job: 'CONNECTOR' },
-      { text: 'もう少し話したかった人に連絡する', job: 'LISTENER' },
-      { text: '今日出会った人に何か役立つ情報を送る', job: 'SUPPORTER' },
-      { text: '一緒にできそうなアイデアを考える', job: 'CREATOR' },
-      { text: '今後も定期的に会える関係を作る', job: 'BUILDER' }
+      { text: '「今日出会った人同士をつなげたい」と感じる', job: 'CONNECTOR' },
+      { text: '「あの人と、もう少し話したかった」と感じる', job: 'LISTENER' },
+      { text: '「今日出会った人の役に立ちたい」と感じる', job: 'SUPPORTER' },
+      { text: '「あの人と一緒に何か生み出せそう」と感じる', job: 'CREATOR' },
+      { text: '「この縁を、これからも大切にしたい」と感じる', job: 'BUILDER' }
     ]}
   ],
 
