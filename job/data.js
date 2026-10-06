@@ -115,7 +115,7 @@ window.JOB_QUIZ = {
   /* ---------- 二つ名（MAIN × SUB）と、ひとことキャッチコピー ---------- */
   titles: {
     CONNECTOR: {
-      LISTENER:  { name: '影のフィクサー',       copy: '聴いて、見抜いて、静かにつなぐ。' },
+      LISTENER:  { name: 'ギルドマスター',       copy: '聴いて、見抜いて、静かにつなぐ。' },
       BUILDER:   { name: 'ネットワーク錬金術師', copy: 'つないだ縁を、価値ある財産に変えていく。' },
       SUPPORTER: { name: '世話焼き召喚士',       copy: '困っている人のもとへ、ぴったりの誰かを呼び寄せる。' },
       CREATOR:   { name: '化学反応ハンター',     copy: '出会いの組み合わせから、新しい何かを仕掛ける。' }
@@ -128,7 +128,7 @@ window.JOB_QUIZ = {
     },
     BUILDER: {
       CONNECTOR: { name: '人脈の建築士',         copy: '縁と縁を組み上げて、長く続く場をつくる。' },
-      LISTENER:  { name: '信頼の大工',           copy: '聴いて、確かめて、信頼を一本ずつ組み上げる。' },
+      LISTENER:  { name: '信頼のドワーフ',           copy: '聴いて、確かめて、信頼を一本ずつ組み上げる。' },
       SUPPORTER: { name: '縁の守護騎士',         copy: '一度結んだ縁を、最後まで守り抜く。' },
       CREATOR:   { name: '事業錬金術師',         copy: 'ひらめきを、続いていく事業のかたちへ。' }
     },
@@ -136,11 +136,11 @@ window.JOB_QUIZ = {
       CONNECTOR: { name: 'おせっかい召喚士',     copy: 'あなたの「困った」に、助っ人を呼んでくる。' },
       LISTENER:  { name: '共感ヒーラー',         copy: '寄り添って聴き、そっと背中を押す。' },
       BUILDER:   { name: '縁の守護者',           copy: '支え続けることで、縁を太くしていく。' },
-      CREATOR:   { name: '応援型プロデューサー', copy: '誰かの挑戦を、応援で企画に変える。' }
+      CREATOR:   { name: '鎮守のモンク', copy: '誰かの挑戦を、応援で企画に変える。' }
     },
     CREATOR: {
       CONNECTOR: { name: '化学反応学者',         copy: '人と人を掛け合わせて、未知の反応を起こす。' },
-      LISTENER:  { name: 'アイデア採掘士',       copy: '聴いた話を、新しい発想の素材にする。' },
+      LISTENER:  { name: '調和のエルフ戦士',       copy: '聴いた話を、新しい発想の素材にする。' },
       SUPPORTER: { name: '可能性の魔法使い',     copy: '誰かの悩みを、可能性に変える魔法をかける。' },
       BUILDER:   { name: 'ビジネス錬金術師',     copy: 'ひらめきを、確かな成果へと錬成する。' }
     }
@@ -168,7 +168,7 @@ window.JOB_QUIZ = {
       { text: '話を聞きながら新しいアイデアを考える', job: 'CREATOR' },
       { text: '今後も関係を続ける方法を考える', job: 'BUILDER' }
     ]},
-    { id: 'q3', text: '「この人、面白いな」と感じるのは？', choices: [
+    { id: 'q3', text: '「この人に興味あるな」と感じるのは？', choices: [
       { text: 'いろいろな人を知っている人', job: 'CONNECTOR' },
       { text: '話をすると、自分の考えが整理される人', job: 'LISTENER' },
       { text: '困ったときに助けてくれる人', job: 'SUPPORTER' },
@@ -182,7 +182,7 @@ window.JOB_QUIZ = {
       { text: '「こういう方法もあるんじゃない？」と別案を考える', job: 'CREATOR' },
       { text: '紹介した後も、その後どうなったか気にする', job: 'BUILDER' }
     ]},
-    { id: 'q5', text: '交流相手が自分の話を長く続けています。\nあなたの最初の反応は？', choices: [
+    { id: 'q5', text: '交流で相手が自分の話を長く続けています。\nあなたの最初の反応は？', choices: [
       { text: '「この人と合いそうな人がいるかも」', job: 'CONNECTOR' },
       { text: '「もう少し話を聞いてみよう」', job: 'LISTENER' },
       { text: '「何か困っていることがあるのかな？」', job: 'SUPPORTER' },
@@ -218,7 +218,7 @@ window.JOB_QUIZ = {
       { text: '一緒に新しいものを生み出せること', job: 'CREATOR' },
       { text: '時間をかけて信頼を積み重ねられること', job: 'BUILDER' }
     ]},
-    { id: 'q10', text: '交流会が終わったあと、あなたが一番やりたいことは？', choices: [
+    { id: 'q10', text: '交流会が終わったあと、あなたが一番感じることは？', choices: [
       { text: '今日出会った人同士をつなげる', job: 'CONNECTOR' },
       { text: 'もう少し話したかった人に連絡する', job: 'LISTENER' },
       { text: '今日出会った人に何か役立つ情報を送る', job: 'SUPPORTER' },
