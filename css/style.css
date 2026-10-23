@@ -334,6 +334,10 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .holo__legend li::before{content:'';width:22px;height:2px;border-radius:2px;background:var(--holo);box-shadow:0 0 8px var(--holo)}
 .holo__legend .is-tate::before{width:2px;height:14px;margin:0 10px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
 .holo__legend .is-tm::before{height:3px;background:var(--tm);box-shadow:0 0 10px var(--tm)}
+.holo__legend .is-biz::before{background:#ff9f7a;box-shadow:0 0 8px #ff9f7a}
+.holo__label--sub{padding:2px 8px 3px}
+.holo__label--sub small{font-size:8.5px}
+.holo__label--sub b{font-family:var(--font-body);font-size:11.5px}
 .holo__hint{
   position:absolute;right:20px;bottom:20px;z-index:4;display:flex;align-items:center;gap:10px;white-space:nowrap;
   font-size:12px;letter-spacing:.12em;color:#bfeff5;pointer-events:none;transition:opacity .8s
@@ -351,17 +355,13 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
   .holo__hint{top:14px;right:14px;bottom:auto;font-size:10.5px;letter-spacing:.06em}
 }
 @media (max-width:420px){.holo__hint{display:none}}
-@media (max-width:700px){.holo__label--core{display:none}}
+@media (max-width:700px){.holo__label--core{display:none}.holo__label small{display:none}.holo__label b{font-size:11px}}
 @media (prefers-reduced-motion:reduce){.holo::before,.holo::after,.holo__hint-ico::after{animation:none}}
-/* 4つの役割（受講順序ではない） */
-.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px;text-align:left}
-.roles li{padding:18px 18px 16px;border-top:2px solid var(--c);background:rgba(255,255,255,.03);border-radius:0 0 14px 14px}
-.roles .en{display:block;font-size:10.5px;letter-spacing:.22em;color:var(--c);filter:brightness(1.25)}
-.roles b{display:block;margin-top:6px;font-weight:500;font-size:14.5px;line-height:1.75}
-.roles small{display:block;margin-top:6px;font-family:var(--font-en);font-size:12.5px;color:var(--on-dark-2)}
-.map-note{margin-top:26px;font-size:13.5px;color:var(--on-dark-2)}
-@media (max-width:900px){.roles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.roles{grid-template-columns:1fr}}
+.map-note{margin-top:22px;font-size:13.5px;color:var(--on-dark-2)}
+/* 全体マップの中の「あなたに合った学び方」 */
+.guide{margin-top:64px;padding-top:52px;border-top:1px solid var(--hair)}
+.guide__title{font-family:var(--font-head);font-weight:600;font-size:clamp(22px,2.6vw,32px);line-height:1.6;color:#fff}
+.guide .purpose{margin-top:30px}
 .formula{margin-top:44px;text-align:center;font-family:var(--font-head);font-weight:600;font-size:clamp(18px,2.1vw,26px);color:var(--on-dark-2)}
 .formula span{color:#fff}
 .formula small{display:block;margin-top:12px;font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--on-dark-3)}
@@ -498,7 +498,11 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .panel .purpose__note{margin-top:12px;font-size:11.5px;color:var(--on-dark-3)}
 @media (max-width:900px){.purpose{grid-template-columns:1fr}}
 /* 対象ごとのルート（補助的な表） */
-.routes{margin-top:56px;text-align:left}
+.routes{margin-top:34px;text-align:left}
+.routes summary{display:inline-flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font-size:13.5px;letter-spacing:.06em;color:var(--accent);list-style:none}
+.routes summary::-webkit-details-marker{display:none}
+.routes summary::before{content:"+";display:grid;place-items:center;width:20px;height:20px;border:1px solid var(--accent);border-radius:50%;font-size:13px;line-height:1;transition:transform .4s}
+.routes[open] summary::before{transform:rotate(45deg)}
 .routes__table{width:100%;margin-top:14px;border-collapse:collapse;font-size:14px;line-height:1.8}
 .routes__table th,.routes__table td{padding:13px 14px;border-top:1px solid var(--hair);vertical-align:top;text-align:left}
 .routes__table thead th{font-weight:400;font-size:12px;letter-spacing:.12em;color:var(--on-dark-3);border-top:0}
@@ -561,3 +565,7 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .checks--2col li:nth-last-child(2){border-bottom:1px solid var(--hair)}
 @media (max-width:640px){.hum-cols,.checks--2col{grid-template-columns:1fr}.checks--2col li:nth-last-child(2){border-bottom:0}}
 .panel--nexus > .mini-label{margin-top:34px}
+/* おすすめの入口のアイコン */
+.purpose__ico{position:relative;display:grid;place-items:center;width:64px;height:64px;margin-bottom:6px;border-radius:50%;background:#fff;overflow:hidden;box-shadow:0 0 26px -4px var(--c)}
+.purpose__ico img{width:78%;height:78%;object-fit:contain}
+.purpose__ico .ico__full{position:absolute;left:50%;top:50%;width:178%;height:178%;max-width:none;transform:translate(-50%,-47.8%)}
