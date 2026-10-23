@@ -89,6 +89,14 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* ---------- あなたに合った学び方：目的を選ぶと、おすすめの入口が切り替わる ---------- */
+  const purposeCards = Array.from(document.querySelectorAll('.purpose__card'));
+  document.querySelectorAll('.purpose input[name="purpose"]').forEach((r) => {
+    r.addEventListener('change', () => {
+      purposeCards.forEach((c) => { c.hidden = c.dataset.purpose !== r.value; });
+    });
+  });
+
   /* ---------- EQ認識理論：「だから、どうなる？」を開く（一度開いたら閉じない） ---------- */
   let relayout = 0;
   document.querySelectorAll('.principle').forEach((li) => {

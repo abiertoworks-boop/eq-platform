@@ -286,58 +286,91 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .gcard__body > p:not([class]){max-width:24em;font-size:14.5px;line-height:2.1;color:#e6ecf6;text-shadow:0 1px 12px rgba(0,0,0,.7)}
 .gcard .checks{margin-top:26px;width:min(100%,22em)}
 .gcard .checks li{border-color:rgba(255,255,255,.14)}
-/* EQ Platform 全体図：上に成長する領域（横・縦）、その下に実践の帯（EQTM）、右に活用（Nexus） */
-.pmap{margin-top:64px;text-align:center}
-.pmap__en{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
-.pmap__title{margin-top:8px;font-family:var(--font-head);font-weight:600;font-size:clamp(20px,2.3vw,28px);line-height:1.7;color:#fff}
-.pmap__grid{
-  display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-areas:"grow side" "band side";
-  gap:18px;margin-top:36px;text-align:left
+.stage__steps .en{display:inline-block;min-width:5.2em;font-size:10.5px;letter-spacing:.16em;color:var(--c);filter:brightness(1.25)}
+
+/* MAP①：6つの学びの場のホログラム（js/holo.js）。背景は透かしたまま、走査線だけ重ねる */
+.holo{
+  --holo:#5ff6ff;--amber:#ffb547;--tm:#4dffcf;
+  position:relative;margin:40px auto 0;height:clamp(460px,62vw,680px);border-radius:26px;overflow:hidden;
+  border:1px solid rgba(95,246,255,.18);
+  background:radial-gradient(60% 55% at 50% 58%,rgba(95,246,255,.07),rgba(95,246,255,0) 70%);
+  box-shadow:inset 0 0 80px rgba(95,246,255,.06);text-align:left
 }
-.pmap__label{font-size:11.5px;letter-spacing:.2em;color:var(--on-dark-3)}
-.pmap__grow{grid-area:grow;padding:22px;border-radius:24px;border:1px dashed rgba(255,255,255,.14)}
-.pmap__cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
-.pmap__tate{display:flex;flex-direction:column}
-.pmap__up{align-self:center;width:1px;height:26px;background:linear-gradient(0deg,var(--c-eia),var(--c-humanity));position:relative}
-.pmap__up::before{content:'';position:absolute;left:-4px;top:-1px;border:4.5px solid transparent;border-bottom-color:var(--c-humanity);border-top:0}
-.pbox,.pband,.pside{
-  display:block;position:relative;padding:20px 20px 18px;border-radius:18px;border:1px solid var(--hair);
-  background:rgba(255,255,255,.03);transition:transform .6s var(--ease-out),border-color .5s,background .5s,box-shadow .6s
+.holo::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;mix-blend-mode:screen;
+  background:repeating-linear-gradient(0deg,rgba(95,246,255,.05) 0 1px,transparent 1px 3px);
+  animation:holoFlicker 5s steps(1) infinite
 }
-.pbox:hover,.pband:hover,.pside:hover{transform:translateY(-4px);border-color:var(--c);background:rgba(255,255,255,.06);box-shadow:0 24px 50px -32px var(--c)}
-.pbox--yoko{display:flex;flex-direction:column;justify-content:center;height:100%}
-.pbox__dir{display:block;font-size:11.5px;letter-spacing:.14em;color:var(--c);filter:brightness(1.25)}
-.pbox__dir i{font-style:normal;margin-left:8px}
-.pbox__name{display:block;margin:6px 0 8px;font-weight:500;font-size:clamp(19px,1.7vw,23px);letter-spacing:.03em;color:#fff}
-.pbox p,.pband p,.pside p{font-size:13.5px;line-height:1.95;color:var(--on-dark-2)}
-.pbox p + p,.pband p + p,.pside p + p{margin-top:6px}
-.pbox__tags{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:10px}
-.pbox__tags li{padding:2px 12px;border-radius:99px;border:1px solid var(--c);font-size:12.5px;color:#fff}
-.pbox__steps{margin:4px 0 8px}
-.pbox__steps li{padding:7px 0;border-top:1px solid var(--hair);font-size:13.5px;line-height:1.7}
-.pbox__steps li:last-child{border-bottom:1px solid var(--hair)}
-.pbox__steps .en,.stage__steps .en{display:inline-block;min-width:5.2em;font-size:10.5px;letter-spacing:.16em;color:var(--c);filter:brightness(1.25)}
-/* 実践の帯：成長する領域を下から支える（学びながら実践する） */
-.pband{grid-area:band;border-color:color-mix(in srgb,var(--c) 55%,transparent);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 16%,transparent),rgba(255,255,255,.02) 60%,color-mix(in srgb,var(--c) 16%,transparent))}
-.pband__note{margin-top:8px !important;color:#fff !important}
-.pside{grid-area:side;display:flex;flex-direction:column;justify-content:center;border-color:color-mix(in srgb,var(--c) 45%,transparent)}
-.pside .pmap__label{margin-bottom:4px}
-@media (max-width:900px){
-  .pmap__grid{grid-template-columns:1fr;grid-template-areas:"grow" "band" "side"}
+.holo::before{
+  content:'';position:absolute;left:0;right:0;top:-30%;height:30%;pointer-events:none;z-index:3;
+  background:linear-gradient(180deg,transparent,rgba(95,246,255,.07),transparent);animation:holoSweep 7s linear infinite
 }
-@media (max-width:600px){
-  .pmap__grow{padding:14px}
-  .pmap__cols{grid-template-columns:1fr}
+@keyframes holoFlicker{0%,100%{opacity:1}47%{opacity:.75}48%{opacity:1}83%{opacity:.85}}
+@keyframes holoSweep{to{transform:translateY(440%)}}
+.holo__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+.holo__canvas:active{cursor:grabbing}
+.holo.is-pointing .holo__canvas{cursor:pointer}
+.holo__labels{position:absolute;inset:0;pointer-events:none;z-index:2}
+.holo__label{
+  position:absolute;left:0;top:0;padding:4px 10px 5px;white-space:nowrap;text-align:center;
+  border-left:1px solid var(--lc);border-right:1px solid var(--lc);background:rgba(3,14,24,.55);
+  color:#e8fdff;text-shadow:0 0 10px var(--lc);transition:background .4s,box-shadow .4s
 }
+.holo__label small{display:block;font-size:9.5px;letter-spacing:.2em;color:var(--lc)}
+.holo__label b{display:block;font-family:var(--font-en);font-weight:500;font-size:13px;letter-spacing:.06em}
+.holo__label.is-on{background:rgba(3,24,34,.85);box-shadow:0 0 22px -4px var(--lc)}
+.holo__label--core{--lc:var(--holo);border:0;background:none}
+.holo__label--core b{font-family:var(--font-body);font-size:11.5px}
+.holo__info{
+  position:absolute;left:20px;bottom:20px;z-index:4;width:min(320px,calc(100% - 40px));padding:14px 16px 16px;
+  border:1px solid rgba(95,246,255,.3);border-radius:4px 16px 4px 16px;background:rgba(2,12,22,.62);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none
+}
+.holo__info-k{font-family:var(--font-en);font-size:10px;letter-spacing:.28em;color:var(--amber);text-transform:uppercase}
+.holo__info-name{margin-top:2px;font-family:var(--font-en);font-weight:500;font-size:19px;color:#fff;text-shadow:0 0 14px rgba(95,246,255,.6)}
+.panel .holo__info-desc{margin-top:6px;font-size:12.5px;line-height:1.95;color:#bfeff5}
+.holo__legend{position:absolute;right:20px;top:20px;z-index:4;display:grid;gap:6px;font-size:11.5px;color:#bfeff5;pointer-events:none}
+.holo__legend li{display:flex;align-items:center;gap:10px}
+.holo__legend li::before{content:'';width:22px;height:2px;border-radius:2px;background:var(--holo);box-shadow:0 0 8px var(--holo)}
+.holo__legend .is-tate::before{width:2px;height:14px;margin:0 10px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.holo__legend .is-tm::before{height:3px;background:var(--tm);box-shadow:0 0 10px var(--tm)}
+.holo__hint{
+  position:absolute;right:20px;bottom:20px;z-index:4;display:flex;align-items:center;gap:10px;white-space:nowrap;
+  font-size:12px;letter-spacing:.12em;color:#bfeff5;pointer-events:none;transition:opacity .8s
+}
+.holo.is-touched .holo__hint{opacity:.35}
+.holo__hint-ico{position:relative;width:30px;height:14px;border:1px solid var(--holo);border-radius:50%}
+.holo__hint-ico::after{content:'';position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--holo);box-shadow:0 0 8px var(--holo);animation:holoOrbit 2.4s ease-in-out infinite}
+@keyframes holoOrbit{0%,100%{transform:translateX(-11px)}50%{transform:translateX(11px)}}
+.holo__a11y{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:700px){
+  .holo{height:600px;border-radius:20px}
+  .holo__info{left:12px;right:12px;bottom:12px;width:auto;padding:10px 12px 12px}
+  .panel .holo__info-desc{font-size:12px;line-height:1.85}
+  .holo__legend{top:12px;right:auto;left:14px;font-size:10.5px}
+  .holo__hint{top:14px;right:14px;bottom:auto;font-size:10.5px;letter-spacing:.06em}
+}
+@media (max-width:420px){.holo__hint{display:none}}
+@media (max-width:700px){.holo__label--core{display:none}}
+@media (prefers-reduced-motion:reduce){.holo::before,.holo::after,.holo__hint-ico::after{animation:none}}
+/* 4つの役割（受講順序ではない） */
+.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px;text-align:left}
+.roles li{padding:18px 18px 16px;border-top:2px solid var(--c);background:rgba(255,255,255,.03);border-radius:0 0 14px 14px}
+.roles .en{display:block;font-size:10.5px;letter-spacing:.22em;color:var(--c);filter:brightness(1.25)}
+.roles b{display:block;margin-top:6px;font-weight:500;font-size:14.5px;line-height:1.75}
+.roles small{display:block;margin-top:6px;font-family:var(--font-en);font-size:12.5px;color:var(--on-dark-2)}
+.map-note{margin-top:26px;font-size:13.5px;color:var(--on-dark-2)}
+@media (max-width:900px){.roles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.roles{grid-template-columns:1fr}}
 .formula{margin-top:44px;text-align:center;font-family:var(--font-head);font-weight:600;font-size:clamp(18px,2.1vw,26px);color:var(--on-dark-2)}
 .formula span{color:#fff}
 .formula small{display:block;margin-top:12px;font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--on-dark-3)}
 @media (max-width:900px){.growth-grid{grid-template-columns:1fr}.gcard,.gcard__body{min-height:400px}}
 
 /* 全体像：アイコンつきの入口 */
-.route-map{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:48px}
+.route-map{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:48px}
 .route-map a{
-  display:flex;flex-direction:column;align-items:center;gap:4px;width:168px;padding:20px 14px 18px;border-radius:20px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:20px 8px 18px;border-radius:20px;
   transition:transform .6s var(--ease-out),background .5s;
 }
 .route-map a:hover{transform:translateY(-5px);background:rgba(255,255,255,.04)}
@@ -351,7 +384,8 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .route-map small{font-size:11.5px;color:var(--on-dark-3)}
 .route-map b{font-family:var(--font-en);font-weight:500;font-size:16px;color:var(--c);filter:brightness(1.15)}
 .flow-note{margin-top:44px;font-family:var(--font-head);font-weight:600;font-size:clamp(16px,1.7vw,20px);line-height:2;color:#fff}
-@media (max-width:640px){.route-map a{width:calc(50% - 9px)}}
+@media (max-width:1000px){.route-map{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.route-map{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ステージ */
 .stage__step{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;font-size:13px;letter-spacing:.12em;color:var(--on-dark-2)}
@@ -444,17 +478,41 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .statement__note{max-width:38em;margin:26px auto 0;font-size:15px;line-height:2.15;color:var(--on-dark-2)}
 .statement--end{margin-top:72px}
 
-/* どこから始めますか */
-.doors{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin-top:48px;text-align:left}
-.door{display:flex;flex-direction:column;gap:8px;padding:26px 22px 24px;border-radius:18px;transition:transform .6s var(--ease-out),background .5s}
-.door:hover{transform:translateY(-5px);background:rgba(255,255,255,.04)}
-.door__k{font-family:var(--font-en);font-size:26px;font-weight:500;line-height:1;color:var(--c);filter:brightness(1.15)}
-.door h3{font-size:15px;line-height:1.75}
-.door p{font-size:12.5px;line-height:1.95;color:var(--on-dark-2)}
-.door__to{margin-top:auto;padding-top:12px;font-size:12.5px;color:var(--accent);opacity:.85;transition:opacity .4s}
-.door:hover .door__to{opacity:1}
-@media (max-width:1100px){.doors{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}}
-@media (max-width:640px){.doors{grid-template-columns:1fr}}
+/* あなたに合ったEQの学び方：目的を選ぶ → おすすめの入口 */
+.purpose{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;margin-top:44px;text-align:left}
+.purpose__list{border:0;display:grid;gap:8px}
+.purpose__list legend{margin-bottom:12px;font-size:13px;letter-spacing:.08em;color:var(--on-dark-2)}
+.purpose__list label{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:14px;border:1px solid var(--hair);cursor:pointer;font-size:14.5px;line-height:1.7;transition:border-color .4s,background .4s}
+.purpose__list label:hover{background:rgba(255,255,255,.04)}
+.purpose__list input{flex:none;appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--on-dark-3);transition:border-color .3s,box-shadow .3s}
+.purpose__list input:checked{border:5px solid var(--accent);box-shadow:0 0 12px var(--glow)}
+.purpose__list label:has(input:checked){border-color:rgba(143,216,255,.5);background:rgba(143,216,255,.06)}
+.purpose__result{display:flex;flex-direction:column}
+.purpose__card{display:flex;flex-direction:column;gap:8px;flex:1;padding:28px 26px;border-radius:20px;border:1px solid var(--c);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 16%,transparent),rgba(255,255,255,.02));animation:purposeIn .7s var(--ease-out)}
+.purpose__card[hidden]{display:none}
+.purpose__card small{font-size:11.5px;letter-spacing:.2em;color:var(--on-dark-3)}
+.purpose__card b{font-weight:500;font-size:clamp(24px,2.4vw,30px);color:#fff}
+.purpose__card p{font-size:14.5px;line-height:2;color:var(--on-dark-2)}
+.purpose__go{margin-top:auto;padding-top:10px;font-size:13px;letter-spacing:.1em;color:var(--c);filter:brightness(1.3)}
+@keyframes purposeIn{from{opacity:0;transform:translateY(10px)}}
+.panel .purpose__note{margin-top:12px;font-size:11.5px;color:var(--on-dark-3)}
+@media (max-width:900px){.purpose{grid-template-columns:1fr}}
+/* 対象ごとのルート（補助的な表） */
+.routes{margin-top:56px;text-align:left}
+.routes__table{width:100%;margin-top:14px;border-collapse:collapse;font-size:14px;line-height:1.8}
+.routes__table th,.routes__table td{padding:13px 14px;border-top:1px solid var(--hair);vertical-align:top;text-align:left}
+.routes__table thead th{font-weight:400;font-size:12px;letter-spacing:.12em;color:var(--on-dark-3);border-top:0}
+.routes__table tbody th{font-weight:500;white-space:nowrap;color:#fff}
+.routes__table td{color:var(--on-dark-2)}
+.routes__table tbody tr:last-child > *{border-bottom:1px solid var(--hair)}
+.panel .routes__note{margin-top:14px;font-size:12.5px;color:var(--on-dark-3)}
+@media (max-width:640px){
+  .routes__table thead{display:none}
+  .routes__table tr{display:block;padding:12px 0;border-top:1px solid var(--hair)}
+  .routes__table th,.routes__table td{display:block;padding:2px 0;border:0 !important}
+  .routes__table td:nth-of-type(1)::before{content:'入口：';color:var(--on-dark-3)}
+  .routes__table td:nth-of-type(2)::before{content:'その後：';color:var(--on-dark-3)}
+}
 .cta__actions{margin-top:48px;display:flex;flex-direction:column;align-items:center;gap:16px}
 
 /* 見出しの文字（scramble） */
@@ -482,3 +540,24 @@ em{font-style:normal;font-weight:500;color:var(--accent)}
 .capture-hover .fcard .fcard__img{opacity:1;transform:none;filter:none;transition:none}
 .capture-hover .fcard .fcard__flap{transform:translateY(62%);transition:none;background:linear-gradient(180deg,rgba(10,17,34,.2) 0%,rgba(10,17,34,.9) 60%)}
 .capture-hover .fcard .fcard__flap::before{opacity:1}
+
+/* なぜ：見出しの下の写真（縁をぼかして背景になじませる） */
+.why-photo{
+  width:100%;max-width:520px;margin-top:34px;aspect-ratio:3/2;object-fit:cover;opacity:.92;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);mask-composite:intersect
+}
+/* 06 のアイコン：画像の白い円を、枠の円にぴったり合わせる */
+.route-map .ico{position:relative}
+.route-map .ico .ico__full{position:absolute;left:50%;top:50%;width:178%;height:178%;max-width:none;transform:translate(-50%,-47.8%)}
+/* EQ Humanity：2つの育成 */
+.hum-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:24px}
+.hum-cols > div{padding:18px 18px 16px;border-radius:16px;border:1px solid var(--hair);background:rgba(255,255,255,.03)}
+.hum-cols b{display:block;font-weight:500;font-size:15.5px;color:var(--c);filter:brightness(1.3)}
+.panel .hum-cols p{margin-top:4px;font-size:13.5px;color:var(--on-dark-2)}
+/* Nexus：2つの機能・対象者 */
+.panel .nexus-cols__p{margin-top:8px;font-size:14px;line-height:2;color:var(--on-dark-2)}
+.checks--2col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+.checks--2col li:nth-last-child(2){border-bottom:1px solid var(--hair)}
+@media (max-width:640px){.hum-cols,.checks--2col{grid-template-columns:1fr}.checks--2col li:nth-last-child(2){border-bottom:0}}
+.panel--nexus > .mini-label{margin-top:34px}
