@@ -343,7 +343,8 @@
     camera.aspect = w / h;
     // 画面の縦横比から、外側の Nexus まで全部が入る距離を出す（横の半幅 約4.7、縦の半高 約2.6）
     const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    const d = Math.max(4.7 / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
+    const halfW = camera.aspect < 1.2 ? 5.5 : 4.7; // 縦長の画面ではラベルの分も余白をとる
+    const d = Math.max(halfW / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
     camera.position.setLength(d);
     camera.updateProjectionMatrix();
   }

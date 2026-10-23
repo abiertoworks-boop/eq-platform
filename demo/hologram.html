@@ -79,10 +79,13 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
 @keyframes holoOrbit{0%,100%{transform:translateX(-11px)}50%{transform:translateX(11px)}}
 .holo__a11y{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:700px){
-  .holo{height:600px;border-radius:20px}
-  .holo__info{left:12px;right:12px;bottom:12px;width:auto;padding:10px 12px 12px}
+  /* スマホ：説明の枠はマップの下へ出して、マップを隠さない */
+  .holo{height:auto;border-radius:20px}
+  .holo__canvas{position:relative;height:380px}
+  .holo__labels{bottom:auto;height:380px}
+  .holo__info{position:relative;left:auto;right:auto;bottom:auto;width:auto;margin:0 12px 12px;padding:12px 14px 14px;pointer-events:auto}
   .panel .holo__info-desc{font-size:12px;line-height:1.85}
-  .holo__legend{top:12px;bottom:auto;right:auto;left:14px;gap:2px;font-size:10px}
+  .holo__legend{position:relative;top:auto;right:auto;bottom:auto;left:auto;display:flex;flex-wrap:wrap;gap:4px 14px;margin:0 14px 14px;font-size:10.5px}
   .holo__hint{top:14px;right:14px;bottom:auto;font-size:10.5px;letter-spacing:.06em}
 }
 @media (max-width:420px){.holo__hint{display:none}}
@@ -468,7 +471,8 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     camera.aspect = w / h;
     // 画面の縦横比から、外側の Nexus まで全部が入る距離を出す（横の半幅 約4.7、縦の半高 約2.6）
     const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    const d = Math.max(4.7 / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
+    const halfW = camera.aspect < 1.2 ? 5.5 : 4.7; // 縦長の画面ではラベルの分も余白をとる
+    const d = Math.max(halfW / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
     camera.position.setLength(d);
     camera.updateProjectionMatrix();
   }
