@@ -14,7 +14,7 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
 .panel{width:min(1100px,100%)}
 /* MAP①：6つの学びの場のホログラム（js/holo.js）。背景は透かしたまま、走査線だけ重ねる */
 .holo{
-  --holo:#5ff6ff;--amber:#ffb547;--tm:#4dffcf;
+  --holo:#5ff6ff;--amber:#ffb547;--tm:#5dff9e;--biz:#ff7eb9;--entry:#b9a2ff;
   position:relative;margin:40px auto 0;height:clamp(460px,62vw,680px);border-radius:26px;overflow:hidden;
   border:1px solid rgba(95,246,255,.18);
   background:radial-gradient(60% 55% at 50% 58%,rgba(95,246,255,.07),rgba(95,246,255,0) 70%);
@@ -53,12 +53,19 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
 .holo__info-k{font-family:var(--font-en);font-size:10px;letter-spacing:.28em;color:var(--amber);text-transform:uppercase}
 .holo__info-name{margin-top:2px;font-family:var(--font-en);font-weight:500;font-size:19px;color:#fff;text-shadow:0 0 14px rgba(95,246,255,.6)}
 .panel .holo__info-desc{margin-top:6px;font-size:12.5px;line-height:1.95;color:#bfeff5}
-.holo__legend{position:absolute;right:20px;top:20px;z-index:4;display:grid;gap:6px;font-size:11.5px;color:#bfeff5;pointer-events:none}
+.holo__legend{position:absolute;right:20px;bottom:52px;z-index:4;display:grid;gap:6px;font-size:11.5px;color:#bfeff5;pointer-events:none}
 .holo__legend li{display:flex;align-items:center;gap:10px}
 .holo__legend li::before{content:'';width:22px;height:2px;border-radius:2px;background:var(--holo);box-shadow:0 0 8px var(--holo)}
-.holo__legend .is-tate::before{width:2px;height:14px;margin:0 10px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.holo__legend .is-tate::before{width:3px;height:14px;margin:0 9.5px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
 .holo__legend .is-tm::before{height:3px;background:var(--tm);box-shadow:0 0 10px var(--tm)}
-.holo__legend .is-biz::before{background:#ff9f7a;box-shadow:0 0 8px #ff9f7a}
+.holo__legend .is-biz::before{background:var(--biz);box-shadow:0 0 8px var(--biz)}
+.holo__legend .is-entry::before{background:var(--entry);box-shadow:0 0 8px var(--entry)}
+/* つながり：別の段落に、線の色で区別したチップを並べる */
+.holo__info-links{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(95,246,255,.28)}
+.panel .holo__info-links p{font-size:10.5px;letter-spacing:.24em;color:var(--amber)}
+.holo__info-links ul{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.holo__info-links li{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 3px;border-radius:99px;border:1px solid var(--lc);background:color-mix(in srgb,var(--lc) 12%,transparent);font-size:12px;line-height:1.7;color:#fff;box-shadow:0 0 10px -3px var(--lc)}
+.holo__info-links li i{font-style:normal;padding:0 7px;border-radius:99px;background:var(--lc);color:#04101a;font-size:10px;font-weight:700;letter-spacing:.04em}
 .holo__label--sub{padding:2px 8px 3px}
 .holo__label--sub small{font-size:8.5px}
 .holo__label--sub b{font-family:var(--font-body);font-size:11.5px}
@@ -75,7 +82,7 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
   .holo{height:600px;border-radius:20px}
   .holo__info{left:12px;right:12px;bottom:12px;width:auto;padding:10px 12px 12px}
   .panel .holo__info-desc{font-size:12px;line-height:1.85}
-  .holo__legend{top:12px;right:auto;left:14px;font-size:10.5px}
+  .holo__legend{top:12px;bottom:auto;right:auto;left:14px;gap:2px;font-size:10px}
   .holo__hint{top:14px;right:14px;bottom:auto;font-size:10.5px;letter-spacing:.06em}
 }
 @media (max-width:420px){.holo__hint{display:none}}
@@ -92,12 +99,14 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     <p class="holo__info-k">HOVER A NODE</p>
     <p class="holo__info-name">学びの場にカーソルを合わせる</p>
     <p class="holo__info-desc">つながっている学びの場が光ります。クリックすると、その説明へ移動します。</p>
+    <div class="holo__info-links" hidden><p>つながり</p><ul></ul></div>
   </div>
   <ul class="holo__legend" aria-hidden="true">
     <li class="is-tate">縦成長｜EIA → EQ Humanity</li>
     <li class="is-yoko">横成長｜EQ Skills</li>
-    <li class="is-tm">EQTM｜すべてを横断する実践</li>
-    <li class="is-biz">ビジネスへの活用｜Nexus</li>
+    <li class="is-tm">実践｜EQTM（すべてを横断）</li>
+    <li class="is-biz">ビジネス｜EQ Business Nexus</li>
+    <li class="is-entry">入口｜EQ Gate</li>
   </ul>
   <p class="holo__hint" aria-hidden="true"><span class="holo__hint-ico"></span>ドラッグ・スワイプで回転</p>
   <!-- 3D図の代わりに読み上げる一覧（ノードをクリックしたときも、このリンクを使って移動する） -->
@@ -138,33 +147,40 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
   const infoK = root.querySelector('.holo__info-k');
   const infoName = root.querySelector('.holo__info-name');
   const infoDesc = root.querySelector('.holo__info-desc');
+  const infoLinksWrap = root.querySelector('.holo__info-links');
+  const infoLinks = infoLinksWrap.querySelector('ul');
+  const LINK_NAME = { tate: '縦成長', branch: '育成', entry: '入口', tm: '実践', biz: 'ビジネス' };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- 色：サイアンブルー基調、縦成長はアンバー、EQTM は青緑 ---------- */
+  /* ---------- 色：意味ごとに分ける。縦成長＝アンバー、横成長＝サイアン、EQTM＝グリーン、Nexus＝ピンク、入口＝バイオレット。骨組みは目立たない青灰 ---------- */
   const CYAN = new THREE.Color('#5ff6ff');
   const AMBER = new THREE.Color('#ffb547');
-  const TEAL = new THREE.Color('#4dffcf');
-  const CORAL = new THREE.Color('#ff9f7a');
-  const COLOR = { tate: AMBER, branch: AMBER, entry: CYAN, tm: TEAL, biz: CORAL };
+  const GREEN = new THREE.Color('#5dff9e');
+  const VIOLET = new THREE.Color('#b9a2ff');
+  const AMBER2 = new THREE.Color('#ffd98a');
+  const FRAME = new THREE.Color('#6f93b8');
+  const CORE = new THREE.Color('#d8f0ff'); // EQ認識理論（すべての土台）
+  const PINK = new THREE.Color('#ff7eb9');
+  const COLOR = { tate: AMBER, branch: AMBER2, entry: VIOLET, tm: GREEN, biz: PINK };
 
   /* ---------- 学びの場（deg＝円周上の角度、y＝高さ、r＝中心からの距離。sub＝EQ Humanity の中の育成） ---------- */
   const R = 2.6, LOW = -1.25, MID = 0, TOP = 1.35;
   const NODES = [
-    { id: 'gate', name: 'EQ Gate', role: 'はじめの入口', deg: 90, y: LOW, c: AMBER, href: '#stage-1',
+    { id: 'gate', name: 'EQ Gate', role: 'はじめの入口', deg: 90, y: LOW, c: VIOLET, href: '#stage-1',
       desc: 'EQとの出会いの入口。無料のコンテンツから、EQ Skills・EIAへつながります。' },
     { id: 'skills', name: 'EQ Skills', role: '横成長', deg: 30, y: MID, c: CYAN, href: '#stage-3',
       desc: '感情を手がかりに、自分と関わる力・他者と関わる力を、スキルとして身につける。できること・関われる力を、横へ広げる成長です。' },
-    { id: 'eia', name: 'EIA', role: '縦成長の土台', deg: 150, y: MID, c: CYAN, href: '#stage-2',
+    { id: 'eia', name: 'EIA', role: '縦成長の土台', deg: 150, y: MID, c: AMBER, href: '#stage-2',
       desc: '自分を知り、整え、選び直せる力を育てる。自己理解・自己受容・あり方・判断軸・行動変容を通して、メタ認知力を育てる領域です。' },
     { id: 'humanity', name: 'EQ Humanity', role: '縦成長・専門人材育成', deg: 150, y: TOP, c: AMBER, href: '#stage-4',
       desc: 'EIAで育てたメタ認知力・あり方・判断力を土台に、他者・組織・社会へ良い影響を与える人材を育てる領域です。' },
-    { id: 'no2', name: '組織No.2育成', role: 'EQ Humanity', deg: 118, y: TOP + 0.62, c: AMBER, href: '#stage-4', sub: true,
+    { id: 'no2', name: '組織No.2育成', role: 'EQ Humanity', deg: 118, y: TOP + 0.62, c: AMBER2, href: '#stage-4', sub: true,
       desc: '人と組織の成長を支える人材を育てる。EQ Business Nexusとつながり、経営者の右腕として、組織の中で力を発揮します。' },
-    { id: 'pro', name: 'EQプロ育成', role: 'EQ Humanity', deg: 182, y: TOP + 0.62, c: AMBER, href: '#stage-4', sub: true,
+    { id: 'pro', name: 'EQプロ育成', role: 'EQ Humanity', deg: 182, y: TOP + 0.62, c: AMBER2, href: '#stage-4', sub: true,
       desc: 'EQを活用して、人を育てる専門人材を育てる。' },
-    { id: 'eqtm', name: 'EQTM', role: 'すべてを横断する実践', deg: 270, y: MID, c: TEAL, href: '#stage-5',
+    { id: 'eqtm', name: 'EQTM', role: 'すべてを横断する実践', deg: 270, y: MID, c: GREEN, href: '#stage-5',
       desc: 'EQ Total Management。EQを高め、伸ばし、人生・仕事・人間関係・組織の中で実践・活用するPlatform。中段のリングが、すべての学びの場を横断します。' },
-    { id: 'nexus', name: 'EQ Business Nexus', role: 'ビジネスへの活用', deg: 345, y: TOP + 0.15, r: R + 1.7, c: CORAL, href: '#nexus',
+    { id: 'nexus', name: 'EQ Business Nexus', role: 'ビジネスへの活用', deg: 345, y: TOP + 0.15, r: R + 1.7, c: PINK, href: '#nexus',
       desc: 'ビジネス専門領域・独立した入口。EQを活用したビジネスコンサルティングの提供と、そのスキルの習得。組織No.2育成と結びつき、経営・事業・組織づくりへ活かします。' },
   ];
   const byId = {};
@@ -226,19 +242,19 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
 
   /* ---------- 投影装置（トライコム・バッジ）と光の円錐 ---------- */
   const BASE = LOW - 0.55;
-  [0.35, 0.62, 0.9].forEach((r, i) => circle(r, BASE, 96, CYAN, 0.55 - i * 0.12));
+  [0.35, 0.62, 0.9].forEach((r, i) => circle(r, BASE, 96, FRAME, 0.55 - i * 0.12));
   const ticks = [];
   for (let i = 0; i < 48; i++) {
     const t = (i / 48) * Math.PI * 2, r0 = 1.0, r1 = i % 4 ? 1.08 : 1.2;
     ticks.push(new THREE.Vector3(Math.cos(t) * r0, BASE, Math.sin(t) * r0), new THREE.Vector3(Math.cos(t) * r1, BASE, Math.sin(t) * r1));
   }
-  const tickRing = add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(ticks), lineMat(CYAN, 0.45)));
-  const emitter = add(halo(CYAN, 1.6, 0.55)); emitter.position.set(0, BASE, 0);
+  const tickRing = add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(ticks), lineMat(FRAME, 0.5)));
+  const emitter = add(halo(CORE, 1.6, 0.5)); emitter.position.set(0, BASE, 0);
   const cone = add(new THREE.Mesh(
     new THREE.CylinderGeometry(R * 1.02, 0.5, TOP - BASE + 0.4, 48, 1, true),
     new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-      uniforms: { uColor: { value: CYAN }, uTime: { value: 0 } },
+      uniforms: { uColor: { value: FRAME }, uTime: { value: 0 } },
       vertexShader: 'varying float vY; void main(){ vY = uv.y; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
       fragmentShader: 'uniform vec3 uColor; uniform float uTime; varying float vY; void main(){ float a = (1.0 - vY) * 0.07 + 0.01; a *= 0.85 + 0.15 * sin(vY * 60.0 - uTime * 3.0); gl_FragColor = vec4(uColor, a); }',
     }),
@@ -246,28 +262,24 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
   cone.position.y = (TOP + 0.4 + BASE) / 2;
 
   /* ---------- 中心軸と EQ認識理論のコア ---------- */
-  add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, BASE, 0), new THREE.Vector3(0, TOP + 0.6, 0)]), lineMat(CYAN, 0.5)));
-  const core = add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.42, 1)), lineMat(CYAN, 0.55)));
-  const coreGlow = add(halo(CYAN, 1.5, 0.35));
+  add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, BASE, 0), new THREE.Vector3(0, TOP + 0.6, 0)]), lineMat(CORE, 0.4)));
+  const core = add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.42, 1)), lineMat(CORE, 0.6)));
+  const coreGlow = add(halo(CORE, 1.5, 0.3));
 
   /* ---------- 円柱状の格子：横のリング（3段）と縦のライン（12本） ---------- */
-  const rings = { low: circle(R, LOW, 160, CYAN, 0.2), top: circle(R, TOP, 160, CYAN, 0.2) };
+  const rings = { low: circle(R, LOW, 160, FRAME, 0.16), top: circle(R, TOP, 160, FRAME, 0.16) };
   // 中段は EQTM のリング（太く見せるため、チューブ＋外側のぼかし）。EQ Skills と EIA はこの上にある
   const ringCurve = new THREE.CatmullRomCurve3(Array.from({ length: 64 }, (_, i) => onCyl((i / 64) * Math.PI * 2, MID)), true);
-  const tmRing = add(new THREE.Mesh(new THREE.TubeGeometry(ringCurve, 256, 0.012, 6, true), glowMat(TEAL, 0.7)));
-  const tmRingGlow = add(new THREE.Mesh(new THREE.TubeGeometry(ringCurve, 256, 0.05, 8, true), glowMat(TEAL, 0.1)));
+  const tmRing = add(new THREE.Mesh(new THREE.TubeGeometry(ringCurve, 256, 0.012, 6, true), glowMat(GREEN, 0.7)));
+  const tmRingGlow = add(new THREE.Mesh(new THREE.TubeGeometry(ringCurve, 256, 0.05, 8, true), glowMat(GREEN, 0.1)));
   const meridians = [];
   for (let i = 0; i < 12; i++) {
     const a = THREE.MathUtils.degToRad(i * 30);
     const base = i % 2 ? 0.08 : 0.14;
-    const l = add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([onCyl(a, LOW - 0.2), onCyl(a, TOP + 0.2)]), lineMat(CYAN, base)));
+    const l = add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([onCyl(a, LOW - 0.2), onCyl(a, TOP + 0.2)]), lineMat(FRAME, base)));
     l.userData.base = base;
     meridians.push(l);
   }
-  // 中心から各ノードへ伸びる、かすかな放射線（すべて EQ認識理論 が土台）
-  NODES.forEach((n) => {
-    add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, n.y, 0), onCyl(n.a, n.y, n.r)]), lineMat(CYAN, 0.07)));
-  });
 
   /* ---------- ノード：フレネルの球（縁が光る）＋芯＋グロー＋回る輪 ---------- */
   const fresnel = (color) => new THREE.ShaderMaterial({
@@ -318,18 +330,29 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     const r0 = strong ? 0.018 : thin ? 0.007 : 0.009;
     const tube = add(new THREE.Mesh(new THREE.TubeGeometry(curve, 96, r0, 6, false), glowMat(color, 0.7)));
     const glow = add(new THREE.Mesh(new THREE.TubeGeometry(curve, 96, strong ? 0.075 : 0.04, 8, false), glowMat(color, strong ? 0.18 : 0.08)));
-    const pulses = (strong ? [0, 0.33, 0.66] : [0, 0.5]).map((o) => { const p = add(halo(color, strong ? 0.44 : 0.3, 0.9)); p.userData.o = o; return p; });
+    // 走る光：太い線は5つ、ほかは3つ。つながりの向きが分かるように、粒の後ろに小さな尾を付ける
+    const count = strong ? 5 : 3;
+    const pulses = Array.from({ length: count }, (_, i) => {
+      const p = add(halo(color, strong ? 0.46 : 0.34, 0.9));
+      p.userData.o = i / count;
+      p.userData.tail = [0.025, 0.05].map((lag) => { const s = add(halo(color, (strong ? 0.3 : 0.22) * (1 - lag * 8), 0.5)); s.userData.lag = lag; return s; });
+      return p;
+    });
     return { ...L, A, B, curve, tube, glow, pulses, base: { tube: 0.7, glow: strong ? 0.18 : 0.08 } };
   });
 
-  /* ---------- 横成長：EQ Skills のまわりで、横へ広がる光の弧（両方向へ光が流れる） ---------- */
-  const sk = byId.skills;
-  const yokoCurve = new THREE.CatmullRomCurve3(Array.from({ length: 33 }, (_, i) => onCyl(sk.a + THREE.MathUtils.degToRad(-58 + (116 * i) / 32), MID + 0.02, R + 0.34)));
-  const yoko = {
-    tube: add(new THREE.Mesh(new THREE.TubeGeometry(yokoCurve, 96, 0.016, 6, false), glowMat(CYAN, 0.75))),
-    glow: add(new THREE.Mesh(new THREE.TubeGeometry(yokoCurve, 96, 0.07, 8, false), glowMat(CYAN, 0.16))),
-    pulses: [0, 1].map((dir) => { const p = add(halo(CYAN, 0.42, 0.9)); p.userData.dir = dir; return p; }),
-  };
+  /* ---------- 横成長：EQ Skills から、水平に広がっていく光の波紋（できること・関われる力が横へ広がる） ---------- */
+  const ripples = [0, 1, 2].map((i) => {
+    const m = new THREE.Mesh(new THREE.RingGeometry(0.96, 1, 96), glowMat(CYAN, 0));
+    m.material.side = THREE.DoubleSide;
+    m.rotation.x = -Math.PI / 2;
+    m.position.copy(byId.skills.g.position);
+    m.userData.o = i / 3;
+    return add(m);
+  });
+
+  /* ---------- EQTM のリングの上を回り続ける光（すべての学びの場を横断する実践） ---------- */
+  const ringPulses = Array.from({ length: 6 }, (_, i) => { const p = add(halo(GREEN, 0.36, 0.9)); p.userData.o = i / 6; return p; });
 
   /* ---------- 漂う光の粒子（それぞれの位相でかすかに明滅） ---------- */
   const PN = 700;
@@ -418,13 +441,22 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     if (focus === n) return;
     focus = n;
     if (n) {
-      const names = links.filter((l) => l.A === n || l.B === n).map((l) => (l.A === n ? l.B : l.A).name);
+      const peers = links.filter((l) => l.A === n || l.B === n).map((l) => ({ node: l.A === n ? l.B : l.A, type: l.type }));
       // EQ Skills・EIA は EQTM のリングの上にある
-      if (n.id === 'eqtm') names.unshift('EQ Skills', 'EIA');
-      if (n.id === 'skills' || n.id === 'eia') names.push('EQTM');
+      if (n.id === 'eqtm') peers.unshift({ node: byId.skills, type: 'tm' }, { node: byId.eia, type: 'tm' });
+      if (n.id === 'skills' || n.id === 'eia') peers.push({ node: byId.eqtm, type: 'tm' });
       infoK.textContent = n.role;
+      infoK.style.color = '#' + n.c.getHexString();
       infoName.textContent = n.name;
-      infoDesc.textContent = n.desc + (names.length ? `　つながり：${names.join('・')}` : '');
+      infoDesc.textContent = n.desc;
+      // つながりは別の段落に、線の色のチップで並べる
+      infoLinks.replaceChildren(...peers.map(({ node, type }) => {
+        const li = document.createElement('li');
+        li.style.setProperty('--lc', '#' + COLOR[type].getHexString());
+        li.innerHTML = `<i>${LINK_NAME[type]}</i>${node.name}`;
+        return li;
+      }));
+      infoLinksWrap.hidden = !peers.length;
     }
   }
 
@@ -483,10 +515,16 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
       const k = focus ? (rel ? 1.6 : 0.35) : 1;
       l.tube.material.opacity = lerp(l.tube.material.opacity, l.base.tube * k, 0.12);
       l.glow.material.opacity = lerp(l.glow.material.opacity, l.base.glow * k, 0.12);
+      const a = rel || !focus ? 1 : 0.22;
       l.pulses.forEach((p) => {
-        const u = (t * (rel ? 0.42 : 0.2) + p.userData.o) % 1;
+        const u = (t * (rel ? 0.36 : 0.18) + p.userData.o) % 1;
         p.position.copy(l.curve.getPointAt(u));
-        p.material.opacity = (rel || !focus ? 0.9 : 0.25) * Math.sin(Math.PI * u);
+        p.material.opacity = a * 0.95 * Math.sin(Math.PI * u);
+        p.userData.tail.forEach((s) => {
+          const w = Math.max(u - s.userData.lag, 0);
+          s.position.copy(l.curve.getPointAt(w));
+          s.material.opacity = a * 0.5 * Math.sin(Math.PI * w);
+        });
       });
     });
     // EQTM のリング：EQTM を照らすと強く、リングの上にある EQ Skills・EIA を照らすと少し光る
@@ -495,14 +533,18 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     tmRing.material.opacity = lerp(tmRing.material.opacity, 0.5 + tmOn * 0.5, 0.1);
     tmRingGlow.material.opacity = lerp(tmRingGlow.material.opacity, 0.08 + tmOn * 0.24, 0.1);
     meridians.forEach((m) => { m.material.opacity = lerp(m.material.opacity, m.userData.base * (1 + (id === 'eqtm' ? 1.5 : 0)), 0.1); });
-    // 横成長の弧：EQ Skills を照らすと強く、両方向へ光が広がる
-    const yOn = id === 'skills' ? 1 : focus ? 0.4 : 0.8;
-    yoko.tube.material.opacity = lerp(yoko.tube.material.opacity, 0.75 * (0.5 + yOn), 0.12);
-    yoko.glow.material.opacity = lerp(yoko.glow.material.opacity, 0.16 * (0.4 + yOn), 0.12);
-    yoko.pulses.forEach((p) => {
-      const u = (t * 0.25) % 1, s = p.userData.dir ? 0.5 + u * 0.5 : 0.5 - u * 0.5;
-      p.position.copy(yokoCurve.getPointAt(s));
-      p.material.opacity = yOn * Math.sin(Math.PI * u) * 0.9;
+    // リングの上を回る光：EQTM を照らすと速く、明るく
+    ringPulses.forEach((p) => {
+      const u = (t * (tmOn === 1 ? 0.09 : 0.04) + p.userData.o) % 1;
+      p.position.copy(ringCurve.getPointAt(u));
+      p.material.opacity = 0.45 + tmOn * 0.5;
+    });
+    // 横成長の波紋：EQ Skills から水平に広がって消える。EQ Skills を照らすと強く
+    const yOn = id === 'skills' ? 1 : focus ? 0.35 : 0.7;
+    ripples.forEach((m) => {
+      const u = (t * 0.32 + m.userData.o) % 1;
+      m.scale.setScalar(0.35 + u * 1.25);
+      m.material.opacity = yOn * 0.55 * (1 - u);
     });
 
     // 投影装置・コア・粒子
