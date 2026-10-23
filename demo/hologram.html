@@ -52,7 +52,7 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
 }
 .holo__info-k{font-family:var(--font-en);font-size:10px;letter-spacing:.28em;color:var(--amber);text-transform:uppercase}
 .holo__info-name{margin-top:2px;font-family:var(--font-en);font-weight:500;font-size:19px;color:#fff;text-shadow:0 0 14px rgba(95,246,255,.6)}
-.panel .holo__info-desc{margin-top:6px;font-size:12.5px;line-height:1.95;color:#bfeff5}
+.holo .holo__info-desc{margin-top:6px;font-size:12.5px;line-height:1.95;color:#bfeff5}
 .holo__legend{position:absolute;right:20px;bottom:52px;z-index:4;display:grid;gap:6px;font-size:11.5px;color:#bfeff5;pointer-events:none}
 .holo__legend li{display:flex;align-items:center;gap:10px}
 .holo__legend li::before{content:'';width:22px;height:2px;border-radius:2px;background:var(--holo);box-shadow:0 0 8px var(--holo)}
@@ -62,7 +62,7 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
 .holo__legend .is-entry::before{background:var(--entry);box-shadow:0 0 8px var(--entry)}
 /* つながり：別の段落に、線の色で区別したチップを並べる */
 .holo__info-links{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(95,246,255,.28)}
-.panel .holo__info-links p{font-size:10.5px;letter-spacing:.24em;color:var(--amber)}
+.holo .holo__info-links p{font-size:10.5px;letter-spacing:.24em;color:var(--amber)}
 .holo__info-links ul{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .holo__info-links li{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 3px;border-radius:99px;border:1px solid var(--lc);background:color-mix(in srgb,var(--lc) 12%,transparent);font-size:12px;line-height:1.7;color:#fff;box-shadow:0 0 10px -3px var(--lc)}
 .holo__info-links li i{font-style:normal;padding:0 7px;border-radius:99px;background:var(--lc);color:#04101a;font-size:10px;font-weight:700;letter-spacing:.04em}
@@ -84,13 +84,54 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
   .holo__canvas{position:relative;height:380px}
   .holo__labels{bottom:auto;height:380px}
   .holo__info{position:relative;left:auto;right:auto;bottom:auto;width:auto;margin:0 12px 12px;padding:12px 14px 14px;pointer-events:auto}
-  .panel .holo__info-desc{font-size:12px;line-height:1.85}
+  .holo .holo__info-desc{font-size:12px;line-height:1.85}
   .holo__legend{position:relative;top:auto;right:auto;bottom:auto;left:auto;display:flex;flex-wrap:wrap;gap:4px 14px;margin:0 14px 14px;font-size:10.5px}
   .holo__hint{top:14px;right:14px;bottom:auto;font-size:10.5px;letter-spacing:.06em}
 }
-@media (max-width:420px){.holo__hint{display:none}}
+@media (max-width:700px){.holo__hint{display:none}}
 @media (max-width:700px){.holo__label--core{display:none}.holo__label small{display:none}.holo__label b{font-size:11px}}
 @media (prefers-reduced-motion:reduce){.holo::before,.holo::after,.holo__hint-ico::after{animation:none}}
+/* 3Dマップの道具：全体に戻る・全画面（右上） */
+.holo__tools{position:absolute;top:14px;right:14px;z-index:6;display:flex;gap:8px}
+.holo__tools button{
+  display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 14px;border-radius:99px;cursor:pointer;
+  font:500 12px/1 var(--font-body);letter-spacing:.08em;color:#e8fdff;white-space:nowrap;
+  border:1px solid rgba(95,246,255,.45);background:rgba(2,14,24,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:0 0 16px -6px var(--holo);transition:background .3s,border-color .3s
+}
+.holo__tools button:hover{background:rgba(95,246,255,.14);border-color:var(--holo)}
+.holo__fs::before{content:'';width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23e8fdff' stroke-width='1.6'%3E%3Cpath d='M1 4.5V1h3.5M7.5 1H11v3.5M11 7.5V11H7.5M4.5 11H1V7.5'/%3E%3C/svg%3E") center/contain no-repeat}
+.holo.is-full .holo__fs::before{content:'×';width:auto;height:auto;background:none;font-size:15px;line-height:1}
+.holo__back{display:none !important}
+.holo.is-zoomed .holo__back{display:inline-flex !important}
+.holo__back::before{content:'←'}
+/* タッチ端末だけに出す、操作のひとこと */
+.holo__tip{display:none}
+@media (hover:none){
+  .holo__tip{display:block;position:relative;z-index:4;margin:0 14px 10px;font-size:11px;letter-spacing:.04em;color:#9fdbe6;text-align:center}
+}
+@media (min-width:701px) and (hover:none){.holo__tip{position:absolute;left:0;right:0;top:56px}}
+
+/* 全画面：画面いっぱいに固定（body の直下へ移してから付く） */
+html.holo-open,html.holo-open body{overflow:hidden}
+.holo.is-full{
+  position:fixed;inset:0;z-index:300;margin:0;width:100%;height:100vh;height:100dvh;border:0;border-radius:0;
+  background:radial-gradient(60% 55% at 50% 55%,rgba(95,246,255,.08),rgba(95,246,255,0) 70%),#03060d
+}
+.holo.is-full .holo__canvas{position:absolute;inset:0;height:100%}
+.holo.is-full .holo__labels{inset:0;height:auto}
+.holo.is-full .holo__info{position:absolute;left:14px;right:auto;bottom:14px;width:min(340px,calc(100% - 28px));margin:0;max-height:44%;overflow:auto}
+.holo.is-full .holo__legend{position:absolute;top:auto;left:auto;right:18px;bottom:18px;display:grid;margin:0}
+.holo.is-full .holo__tip{position:absolute;left:0;right:0;top:60px}
+@media (max-width:700px){
+  .holo.is-full .holo__info{right:14px;width:auto;max-height:36%;padding:10px 12px 12px}
+  .holo.is-full .holo__legend{top:58px;right:auto;left:14px;bottom:auto;display:flex;flex-wrap:wrap;gap:2px 12px;max-width:calc(100% - 28px);font-size:10px}
+  /* マップは説明の枠より上の部分に描く */
+  .holo.is-full .holo__canvas{height:62%}
+  .holo.is-full .holo__labels{bottom:auto;height:62%}
+  .holo.is-full .holo__tip{top:calc(62% - 28px);bottom:auto}
+  .holo.is-full .holo__info{max-height:35%}
+}
 </style>
 </head>
 <body>
@@ -112,6 +153,11 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     <li class="is-entry">入口｜EQ Gate</li>
   </ul>
   <p class="holo__hint" aria-hidden="true"><span class="holo__hint-ico"></span>ドラッグ・スワイプで回転</p>
+  <div class="holo__tools">
+    <button class="holo__back" type="button" aria-label="全体の眺めに戻る"><span>全体に戻る</span></button>
+    <button class="holo__fs" type="button" aria-label="全画面で見る"><span>全画面</span></button>
+  </div>
+  <p class="holo__tip" aria-hidden="true">球をタップすると近づきます。もう一度タップで説明へ</p>
   <!-- 3D図の代わりに読み上げる一覧（ノードをクリックしたときも、このリンクを使って移動する） -->
   <ul class="holo__a11y">
     <li><a href="#stage-1">EQ Gate：はじめの入口。EQ Skills・EIAへ</a></li>
@@ -186,6 +232,14 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     { id: 'nexus', name: 'EQ Business Nexus', role: 'ビジネスへの活用', deg: 345, y: TOP + 0.15, r: R + 1.7, c: PINK, href: '#nexus',
       desc: 'ビジネス専門領域・独立した入口。EQを活用したビジネスコンサルティングの提供と、そのスキルの習得。組織No.2育成と結びつき、経営・事業・組織づくりへ活かします。' },
   ];
+  // スマホ：外側の Nexus と、上の2つの育成を内側へ寄せて、全体を大きく映せるようにする
+  const COMPACT = window.matchMedia('(max-width:700px)').matches;
+  if (COMPACT) {
+    NODES.forEach((n) => {
+      if (n.id === 'nexus') { n.r = R + 0.7; n.y = TOP + 0.3; }
+      if (n.sub) n.y = TOP + 0.48;
+    });
+  }
   const byId = {};
   NODES.forEach((n, i) => { n.i = i; n.a = THREE.MathUtils.degToRad(n.deg); n.r = n.r || R; byId[n.id] = n; });
 
@@ -402,7 +456,7 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     controls.target.set(0, 0.45, 0);
     let idle = 0;
     controls.addEventListener('start', () => { clearTimeout(idle); controls.autoRotate = false; root.classList.add('is-touched'); });
-    controls.addEventListener('end', () => { clearTimeout(idle); idle = setTimeout(() => { controls.autoRotate = !reduceMotion; }, 4000); });
+    controls.addEventListener('end', () => { clearTimeout(idle); idle = setTimeout(() => { controls.autoRotate = !reduceMotion && !zoomed; }, 4000); });
   }
 
   /* ---------- ホバーとクリック ---------- */
@@ -424,12 +478,60 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     const r = rectOf();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     const n = pick();
-    if (!n) return;
-    // タッチはまず照らすだけ。同じノードをもう一度タップしたら移動する
-    if (e.pointerType !== 'mouse' && focus !== n) { setFocus(n, true); return; }
+    const touch = e.pointerType !== 'mouse';
+    // タッチ：何もない所をタップすると、全体の眺めへ戻る
+    if (!n) { if (touch && zoomed) goHome(); return; }
+    // タッチ：1回目はその球へ寄って照らす。同じ球をもう一度タップしたら、その説明へ移動する
+    if (touch && (focus !== n || !zoomed)) { setFocus(n, true); flyToNode(n); return; }
+    if (full) setFull(false);
     const a = root.querySelector(`.holo__a11y a[href="${n.href}"]`);
     if (a) a.click();
   });
+
+  /* ---------- カメラを寄せる・戻す（タップで寄ったとき） ---------- */
+  const HOME = new THREE.Vector3(0, 0.45, 0);
+  let baseDist = 11, fly = null, zoomed = false;
+  function flyToNode(n) {
+    const p = new THREE.Vector3();
+    n.g.getWorldPosition(p);
+    fly = { target: p, dist: baseDist * 0.55 };
+    zoomed = true;
+    if (controls) controls.autoRotate = false;
+    root.classList.add('is-zoomed');
+  }
+  function goHome() {
+    fly = { target: HOME.clone(), dist: baseDist };
+    zoomed = false;
+    pinned = false;
+    if (controls) controls.autoRotate = !reduceMotion;
+    root.classList.remove('is-zoomed');
+  }
+  const backBtn = root.querySelector('.holo__back');
+  if (backBtn) backBtn.addEventListener('click', goHome);
+
+  /* ---------- 全画面で見る（iPhone でも動くよう、画面いっぱいに固定した表示に切り替える） ---------- */
+  const fsBtn = root.querySelector('.holo__fs');
+  let full = false, home = null;
+  function setFull(on) {
+    if (on === full) return;
+    full = on;
+    // 親の .panel は backdrop-filter で固定表示の基準になってしまうので、body の直下へ移す
+    if (on) { home = document.createComment('holo'); root.before(home); document.body.appendChild(root); }
+    else if (home) { home.replaceWith(root); home = null; }
+    document.documentElement.classList.toggle('holo-open', on);
+    root.classList.toggle('is-full', on);
+    if (fsBtn) {
+      fsBtn.setAttribute('aria-label', on ? '全画面を閉じる' : '全画面で見る');
+      fsBtn.querySelector('span').textContent = on ? '閉じる' : '全画面';
+    }
+    // 全画面ではピンチ・ホイールで拡大縮小もできる
+    if (controls) controls.enableZoom = on;
+    resize();
+  }
+  if (fsBtn) fsBtn.addEventListener('click', () => setFull(!full));
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && full) setFull(false); });
+  // 全画面の間は、ホイールで後ろのページが動かないように
+  root.addEventListener('wheel', (e) => { if (full) e.stopPropagation(); }, { passive: true });
   function pick() {
     ray.setFromCamera(ptr, camera);
     const hit = ray.intersectObjects(pickables, false)[0];
@@ -439,6 +541,7 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
   // 照らすノードと、そのつながり
   let pinned = false, tourAt = 0, tourI = 0;
   const TOUR = ['gate', 'skills', 'eia', 'humanity', 'no2', 'nexus', 'eqtm', 'pro'];
+  const related = new Set();
   function setFocus(n, pin) {
     pinned = !!pin;
     if (focus === n) return;
@@ -448,6 +551,9 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
       // EQ Skills・EIA は EQTM のリングの上にある
       if (n.id === 'eqtm') peers.unshift({ node: byId.skills, type: 'tm' }, { node: byId.eia, type: 'tm' });
       if (n.id === 'skills' || n.id === 'eia') peers.push({ node: byId.eqtm, type: 'tm' });
+      related.clear();
+      related.add(n.id);
+      peers.forEach((p) => related.add(p.node.id));
       infoK.textContent = n.role;
       infoK.style.color = '#' + n.c.getHexString();
       infoName.textContent = n.name;
@@ -469,11 +575,18 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // 画面の縦横比から、外側の Nexus まで全部が入る距離を出す（横の半幅 約4.7、縦の半高 約2.6）
+    // 画面の縦横比から、外側の Nexus まで全部が入る距離を出す（横の半幅、縦の半高 約2.6）
     const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    const halfW = camera.aspect < 1.2 ? 5.5 : 4.7; // 縦長の画面ではラベルの分も余白をとる
-    const d = Math.max(halfW / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
-    camera.position.setLength(d);
+    const halfW = COMPACT ? 3.7 : camera.aspect < 1.2 ? 5.5 : 4.7; // スマホは内側へ寄せた分だけ大きく映せる
+    baseDist = Math.max(halfW / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
+    if (controls) {
+      controls.minDistance = baseDist * 0.35;
+      controls.maxDistance = baseDist * 1.5;
+      if (!zoomed) {
+        const off = camera.position.clone().sub(controls.target).setLength(baseDist);
+        camera.position.copy(controls.target).add(off);
+      }
+    } else camera.position.setLength(baseDist);
     camera.updateProjectionMatrix();
   }
   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
@@ -491,6 +604,14 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
     raf = requestAnimationFrame(frame);
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
+    // タップで寄る・戻る：注視点と距離を、なめらかに近づける
+    if (fly && controls) {
+      controls.target.lerp(fly.target, 0.1);
+      const off = camera.position.clone().sub(controls.target);
+      const L = lerp(off.length(), fly.dist, 0.1);
+      camera.position.copy(controls.target).add(off.setLength(L));
+      if (controls.target.distanceTo(fly.target) < 0.005 && Math.abs(L - fly.dist) < 0.01) fly = null;
+    }
     if (controls) controls.update();
 
     // ホバー判定。触れていない間は、順番にノードを照らす（つながりの案内）
@@ -576,6 +697,8 @@ body{min-height:100vh;display:grid;place-items:center;padding:24px 16px;backgrou
       n.g.getWorldPosition(tmp);
       place(n.label, tmp.clone(), (0.4 + n.heat * 0.16) * n.k);
       n.label.classList.toggle('is-on', n === focus);
+      // スマホ：照らしている球と、そのつながり先の名前だけを出す（重なりを防ぐ）
+      if (COMPACT && focus && !related.has(n.id)) n.label.style.opacity = '0';
     });
     place(coreLabel, new THREE.Vector3(0, 0, 0), -0.5, true);
   }

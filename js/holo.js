@@ -58,6 +58,14 @@
     { id: 'nexus', name: 'EQ Business Nexus', role: 'ビジネスへの活用', deg: 345, y: TOP + 0.15, r: R + 1.7, c: PINK, href: '#nexus',
       desc: 'ビジネス専門領域・独立した入口。EQを活用したビジネスコンサルティングの提供と、そのスキルの習得。組織No.2育成と結びつき、経営・事業・組織づくりへ活かします。' },
   ];
+  // スマホ：外側の Nexus と、上の2つの育成を内側へ寄せて、全体を大きく映せるようにする
+  const COMPACT = window.matchMedia('(max-width:700px)').matches;
+  if (COMPACT) {
+    NODES.forEach((n) => {
+      if (n.id === 'nexus') { n.r = R + 0.7; n.y = TOP + 0.3; }
+      if (n.sub) n.y = TOP + 0.48;
+    });
+  }
   const byId = {};
   NODES.forEach((n, i) => { n.i = i; n.a = THREE.MathUtils.degToRad(n.deg); n.r = n.r || R; byId[n.id] = n; });
 
@@ -274,7 +282,7 @@
     controls.target.set(0, 0.45, 0);
     let idle = 0;
     controls.addEventListener('start', () => { clearTimeout(idle); controls.autoRotate = false; root.classList.add('is-touched'); });
-    controls.addEventListener('end', () => { clearTimeout(idle); idle = setTimeout(() => { controls.autoRotate = !reduceMotion; }, 4000); });
+    controls.addEventListener('end', () => { clearTimeout(idle); idle = setTimeout(() => { controls.autoRotate = !reduceMotion && !zoomed; }, 4000); });
   }
 
   /* ---------- ホバーとクリック ---------- */
@@ -296,12 +304,60 @@
     const r = rectOf();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     const n = pick();
-    if (!n) return;
-    // タッチはまず照らすだけ。同じノードをもう一度タップしたら移動する
-    if (e.pointerType !== 'mouse' && focus !== n) { setFocus(n, true); return; }
+    const touch = e.pointerType !== 'mouse';
+    // タッチ：何もない所をタップすると、全体の眺めへ戻る
+    if (!n) { if (touch && zoomed) goHome(); return; }
+    // タッチ：1回目はその球へ寄って照らす。同じ球をもう一度タップしたら、その説明へ移動する
+    if (touch && (focus !== n || !zoomed)) { setFocus(n, true); flyToNode(n); return; }
+    if (full) setFull(false);
     const a = root.querySelector(`.holo__a11y a[href="${n.href}"]`);
     if (a) a.click();
   });
+
+  /* ---------- カメラを寄せる・戻す（タップで寄ったとき） ---------- */
+  const HOME = new THREE.Vector3(0, 0.45, 0);
+  let baseDist = 11, fly = null, zoomed = false;
+  function flyToNode(n) {
+    const p = new THREE.Vector3();
+    n.g.getWorldPosition(p);
+    fly = { target: p, dist: baseDist * 0.55 };
+    zoomed = true;
+    if (controls) controls.autoRotate = false;
+    root.classList.add('is-zoomed');
+  }
+  function goHome() {
+    fly = { target: HOME.clone(), dist: baseDist };
+    zoomed = false;
+    pinned = false;
+    if (controls) controls.autoRotate = !reduceMotion;
+    root.classList.remove('is-zoomed');
+  }
+  const backBtn = root.querySelector('.holo__back');
+  if (backBtn) backBtn.addEventListener('click', goHome);
+
+  /* ---------- 全画面で見る（iPhone でも動くよう、画面いっぱいに固定した表示に切り替える） ---------- */
+  const fsBtn = root.querySelector('.holo__fs');
+  let full = false, home = null;
+  function setFull(on) {
+    if (on === full) return;
+    full = on;
+    // 親の .panel は backdrop-filter で固定表示の基準になってしまうので、body の直下へ移す
+    if (on) { home = document.createComment('holo'); root.before(home); document.body.appendChild(root); }
+    else if (home) { home.replaceWith(root); home = null; }
+    document.documentElement.classList.toggle('holo-open', on);
+    root.classList.toggle('is-full', on);
+    if (fsBtn) {
+      fsBtn.setAttribute('aria-label', on ? '全画面を閉じる' : '全画面で見る');
+      fsBtn.querySelector('span').textContent = on ? '閉じる' : '全画面';
+    }
+    // 全画面ではピンチ・ホイールで拡大縮小もできる
+    if (controls) controls.enableZoom = on;
+    resize();
+  }
+  if (fsBtn) fsBtn.addEventListener('click', () => setFull(!full));
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && full) setFull(false); });
+  // 全画面の間は、ホイールで後ろのページが動かないように
+  root.addEventListener('wheel', (e) => { if (full) e.stopPropagation(); }, { passive: true });
   function pick() {
     ray.setFromCamera(ptr, camera);
     const hit = ray.intersectObjects(pickables, false)[0];
@@ -311,6 +367,7 @@
   // 照らすノードと、そのつながり
   let pinned = false, tourAt = 0, tourI = 0;
   const TOUR = ['gate', 'skills', 'eia', 'humanity', 'no2', 'nexus', 'eqtm', 'pro'];
+  const related = new Set();
   function setFocus(n, pin) {
     pinned = !!pin;
     if (focus === n) return;
@@ -320,6 +377,9 @@
       // EQ Skills・EIA は EQTM のリングの上にある
       if (n.id === 'eqtm') peers.unshift({ node: byId.skills, type: 'tm' }, { node: byId.eia, type: 'tm' });
       if (n.id === 'skills' || n.id === 'eia') peers.push({ node: byId.eqtm, type: 'tm' });
+      related.clear();
+      related.add(n.id);
+      peers.forEach((p) => related.add(p.node.id));
       infoK.textContent = n.role;
       infoK.style.color = '#' + n.c.getHexString();
       infoName.textContent = n.name;
@@ -341,11 +401,18 @@
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // 画面の縦横比から、外側の Nexus まで全部が入る距離を出す（横の半幅 約4.7、縦の半高 約2.6）
+    // 画面の縦横比から、外側の Nexus まで全部が入る距離を出す（横の半幅、縦の半高 約2.6）
     const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    const halfW = camera.aspect < 1.2 ? 5.5 : 4.7; // 縦長の画面ではラベルの分も余白をとる
-    const d = Math.max(halfW / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
-    camera.position.setLength(d);
+    const halfW = COMPACT ? 3.7 : camera.aspect < 1.2 ? 5.5 : 4.7; // スマホは内側へ寄せた分だけ大きく映せる
+    baseDist = Math.max(halfW / (tanV * camera.aspect), 2.6 / tanV) + 1.6;
+    if (controls) {
+      controls.minDistance = baseDist * 0.35;
+      controls.maxDistance = baseDist * 1.5;
+      if (!zoomed) {
+        const off = camera.position.clone().sub(controls.target).setLength(baseDist);
+        camera.position.copy(controls.target).add(off);
+      }
+    } else camera.position.setLength(baseDist);
     camera.updateProjectionMatrix();
   }
   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
@@ -363,6 +430,14 @@
     raf = requestAnimationFrame(frame);
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
+    // タップで寄る・戻る：注視点と距離を、なめらかに近づける
+    if (fly && controls) {
+      controls.target.lerp(fly.target, 0.1);
+      const off = camera.position.clone().sub(controls.target);
+      const L = lerp(off.length(), fly.dist, 0.1);
+      camera.position.copy(controls.target).add(off.setLength(L));
+      if (controls.target.distanceTo(fly.target) < 0.005 && Math.abs(L - fly.dist) < 0.01) fly = null;
+    }
     if (controls) controls.update();
 
     // ホバー判定。触れていない間は、順番にノードを照らす（つながりの案内）
@@ -448,6 +523,8 @@
       n.g.getWorldPosition(tmp);
       place(n.label, tmp.clone(), (0.4 + n.heat * 0.16) * n.k);
       n.label.classList.toggle('is-on', n === focus);
+      // スマホ：照らしている球と、そのつながり先の名前だけを出す（重なりを防ぐ）
+      if (COMPACT && focus && !related.has(n.id)) n.label.style.opacity = '0';
     });
     place(coreLabel, new THREE.Vector3(0, 0, 0), -0.5, true);
   }
