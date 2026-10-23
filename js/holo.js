@@ -60,6 +60,8 @@
   ];
   // スマホ：外側の Nexus と、上の2つの育成を内側へ寄せて、全体を大きく映せるようにする
   const COMPACT = window.matchMedia('(max-width:700px)').matches;
+  // 名前を絞る画面：スマホの縦・横（横向きは背が低い画面）。回転にもついていく
+  const FEW_LABELS = window.matchMedia('(max-width:700px), (orientation:landscape) and (max-height:500px)');
   if (COMPACT) {
     NODES.forEach((n) => {
       if (n.id === 'nexus') { n.r = R + 0.7; n.y = TOP + 0.3; }
@@ -304,14 +306,11 @@
     const r = rectOf();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     const n = pick();
-    const touch = e.pointerType !== 'mouse';
-    // タッチ：何もない所をタップすると、全体の眺めへ戻る
-    if (!n) { if (touch && zoomed) goHome(); return; }
-    // タッチ：1回目はその球へ寄って照らす。同じ球をもう一度タップしたら、その説明へ移動する
-    if (touch && (focus !== n || !zoomed)) { setFocus(n, true); flyToNode(n); return; }
-    if (full) setFull(false);
-    const a = root.querySelector(`.holo__a11y a[href="${n.href}"]`);
-    if (a) a.click();
+    // 何もない所をタップ（クリック）すると、全体の眺めへ戻る
+    if (!n) { if (zoomed) goHome(); return; }
+    // 球をタップ（クリック）すると、その球へ寄って照らすだけ。ページは移動しない（触るたびに飛ぶと使いにくいため）
+    setFocus(n, true);
+    flyToNode(n);
   });
 
   /* ---------- カメラを寄せる・戻す（タップで寄ったとき） ---------- */
@@ -523,8 +522,8 @@
       n.g.getWorldPosition(tmp);
       place(n.label, tmp.clone(), (0.4 + n.heat * 0.16) * n.k);
       n.label.classList.toggle('is-on', n === focus);
-      // スマホ：照らしている球と、そのつながり先の名前だけを出す（重なりを防ぐ）
-      if (COMPACT && focus && !related.has(n.id)) n.label.style.opacity = '0';
+      // スマホ（縦・横）：照らしている球と、そのつながり先の名前だけを出す（重なりを防ぐ）
+      if (FEW_LABELS.matches && focus && !related.has(n.id)) n.label.style.opacity = '0';
     });
     place(coreLabel, new THREE.Vector3(0, 0, 0), -0.5, true);
   }

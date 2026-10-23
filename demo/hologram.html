@@ -132,6 +132,30 @@ html.holo-open,html.holo-open body{overflow:hidden}
   .holo.is-full .holo__tip{top:calc(62% - 28px);bottom:auto}
   .holo.is-full .holo__info{max-height:35%}
 }
+
+/* スマホを横にしたとき（背の低い横長の画面）：マップは左、説明・凡例は右の列に並べて重ねない */
+@media (orientation:landscape) and (max-height:500px){
+  .holo{
+    height:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,34%);grid-template-rows:auto auto 1fr;
+    grid-template-areas:"map info" "map legend" "map tip";column-gap:12px;padding-right:12px
+  }
+  .holo__canvas{grid-area:map;position:relative;inset:auto;height:calc(100vh - 96px);min-height:250px}
+  .holo__labels{grid-area:map;position:relative;inset:auto;height:100%}
+  .holo__info{grid-area:info;position:relative;inset:auto;width:auto;max-height:none;margin:12px 0 8px;padding:10px 12px 12px;pointer-events:auto}
+  .holo .holo__info-desc{font-size:11.5px;line-height:1.8}
+  .holo__legend{grid-area:legend;position:relative;inset:auto;display:flex;flex-wrap:wrap;gap:2px 10px;margin:0 0 6px;font-size:10px}
+  .holo__tip{grid-area:tip;position:relative;inset:auto;margin:0 0 10px;text-align:left}
+  .holo__tools{right:auto;left:14px}
+  .holo__hint{display:none}
+  #map .holo:not(.is-full){margin-left:0;margin-right:0}
+  /* 全画面：画面の高さいっぱいに、同じ2列で */
+  .holo.is-full{display:grid;height:100vh;height:100dvh;overflow:hidden}
+  .holo.is-full .holo__canvas{position:relative;inset:auto;height:100%;min-height:0}
+  .holo.is-full .holo__labels{position:relative;inset:auto;height:100%}
+  .holo.is-full .holo__info{position:relative;inset:auto;width:auto;margin:14px 0 8px;max-height:calc(100vh - 120px);overflow:auto}
+  .holo.is-full .holo__legend{position:relative;inset:auto;display:flex;max-width:none;margin:0 0 6px}
+  .holo.is-full .holo__tip{position:relative;inset:auto;top:auto;bottom:auto;margin:0 0 10px}
+}
 </style>
 </head>
 <body>
@@ -142,7 +166,7 @@ html.holo-open,html.holo-open body{overflow:hidden}
   <div class="holo__info" aria-live="polite">
     <p class="holo__info-k">HOVER A NODE</p>
     <p class="holo__info-name">学びの場にカーソルを合わせる</p>
-    <p class="holo__info-desc">つながっている学びの場が光ります。クリックすると、その説明へ移動します。</p>
+    <p class="holo__info-desc">つながっている学びの場が光ります。球をクリック（タップ）すると、その球へ近づきます。</p>
     <div class="holo__info-links" hidden><p>つながり</p><ul></ul></div>
   </div>
   <ul class="holo__legend" aria-hidden="true">
@@ -157,8 +181,8 @@ html.holo-open,html.holo-open body{overflow:hidden}
     <button class="holo__back" type="button" aria-label="全体の眺めに戻る"><span>全体に戻る</span></button>
     <button class="holo__fs" type="button" aria-label="全画面で見る"><span>全画面</span></button>
   </div>
-  <p class="holo__tip" aria-hidden="true">球をタップすると近づきます。もう一度タップで説明へ</p>
-  <!-- 3D図の代わりに読み上げる一覧（ノードをクリックしたときも、このリンクを使って移動する） -->
+  <p class="holo__tip" aria-hidden="true">球をタップすると近づきます。何もない所をタップで全体に戻ります</p>
+  <!-- 3D図の代わりに読み上げる一覧（画面には出ない） -->
   <ul class="holo__a11y">
     <li><a href="#stage-1">EQ Gate：はじめの入口。EQ Skills・EIAへ</a></li>
     <li><a href="#stage-3">EQ Skills：横成長。自分・他者と関わるスキル</a></li>
@@ -234,6 +258,8 @@ html.holo-open,html.holo-open body{overflow:hidden}
   ];
   // スマホ：外側の Nexus と、上の2つの育成を内側へ寄せて、全体を大きく映せるようにする
   const COMPACT = window.matchMedia('(max-width:700px)').matches;
+  // 名前を絞る画面：スマホの縦・横（横向きは背が低い画面）。回転にもついていく
+  const FEW_LABELS = window.matchMedia('(max-width:700px), (orientation:landscape) and (max-height:500px)');
   if (COMPACT) {
     NODES.forEach((n) => {
       if (n.id === 'nexus') { n.r = R + 0.7; n.y = TOP + 0.3; }
@@ -478,14 +504,11 @@ html.holo-open,html.holo-open body{overflow:hidden}
     const r = rectOf();
     ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     const n = pick();
-    const touch = e.pointerType !== 'mouse';
-    // タッチ：何もない所をタップすると、全体の眺めへ戻る
-    if (!n) { if (touch && zoomed) goHome(); return; }
-    // タッチ：1回目はその球へ寄って照らす。同じ球をもう一度タップしたら、その説明へ移動する
-    if (touch && (focus !== n || !zoomed)) { setFocus(n, true); flyToNode(n); return; }
-    if (full) setFull(false);
-    const a = root.querySelector(`.holo__a11y a[href="${n.href}"]`);
-    if (a) a.click();
+    // 何もない所をタップ（クリック）すると、全体の眺めへ戻る
+    if (!n) { if (zoomed) goHome(); return; }
+    // 球をタップ（クリック）すると、その球へ寄って照らすだけ。ページは移動しない（触るたびに飛ぶと使いにくいため）
+    setFocus(n, true);
+    flyToNode(n);
   });
 
   /* ---------- カメラを寄せる・戻す（タップで寄ったとき） ---------- */
@@ -697,8 +720,8 @@ html.holo-open,html.holo-open body{overflow:hidden}
       n.g.getWorldPosition(tmp);
       place(n.label, tmp.clone(), (0.4 + n.heat * 0.16) * n.k);
       n.label.classList.toggle('is-on', n === focus);
-      // スマホ：照らしている球と、そのつながり先の名前だけを出す（重なりを防ぐ）
-      if (COMPACT && focus && !related.has(n.id)) n.label.style.opacity = '0';
+      // スマホ（縦・横）：照らしている球と、そのつながり先の名前だけを出す（重なりを防ぐ）
+      if (FEW_LABELS.matches && focus && !related.has(n.id)) n.label.style.opacity = '0';
     });
     place(coreLabel, new THREE.Vector3(0, 0, 0), -0.5, true);
   }
