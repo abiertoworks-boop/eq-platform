@@ -550,6 +550,9 @@
 
     // Every panel arrives the same quiet way. The tween follows the scroll exactly (scrub: true):
     // a lag would leave the panel drifting behind the section it belongs to.
+    // On phones and tablets a panel is often taller than the screen, so fading it on the way out
+    // would dim text that is still being read. There it stays fully visible.
+    const fadeOut = !window.matchMedia('(max-width: 900px), (hover: none)').matches;
     document.querySelectorAll('.sec').forEach((sec) => {
       const panel = sec.querySelector('.panel');
       if (!panel) return;
@@ -557,7 +560,7 @@
         opacity: 1, y: 0, ease: 'none',
         scrollTrigger: { trigger: sec, start: 'top 82%', end: 'top 42%', scrub: true },
       });
-      if (!sec.classList.contains('sec--last')) {
+      if (fadeOut && !sec.classList.contains('sec--last')) {
         gsap.to(panel, {
           opacity: 0.12, ease: 'none', immediateRender: false,
           scrollTrigger: { trigger: sec, start: 'bottom 58%', end: 'bottom 18%', scrub: true },
@@ -592,6 +595,19 @@
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener('load', () => setTimeout(refresh, 300));
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(refresh, 120));
+    // Opening the route table or switching the recommended card changes the page height. Every
+    // trigger below would then fire at the old positions and leave the sections invisible.
+    if ('ResizeObserver' in window) {
+      let lastH = document.body.offsetHeight, rt = 0;
+      new ResizeObserver(() => {
+        const h = document.body.offsetHeight;
+        if (Math.abs(h - lastH) < 2) return;
+        lastH = h;
+        clearTimeout(rt);
+        rt = setTimeout(refresh, 150);
+      }).observe(document.body);
+    }
+    document.querySelectorAll('details').forEach((d) => d.addEventListener('toggle', () => setTimeout(refresh, 50)));
   }
 
   /* ---------- Capture mode (visual QA only) ---------- */
